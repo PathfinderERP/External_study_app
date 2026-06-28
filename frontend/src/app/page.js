@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
   User,
@@ -30,69 +30,58 @@ export default function Login() {
 
   // User session state
   const [currentUser, setCurrentUser] = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const [userRole, setUserRole] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("role") || "STUDENT";
+    }
+    return "STUDENT";
+  });
+  const [isRestoringSession, setIsRestoringSession] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !!localStorage.getItem("token");
+    }
+    return false;
+  });
+
+  // Auto-restore session from localStorage on reload
+  useEffect(() => {
+    setIsMounted(true);
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch("/api/users/me", {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Invalid session");
+          return res.json();
+        })
+        .then(profileData => {
+          setCurrentUser(profileData);
+          setUserRole(profileData.role);
+          localStorage.setItem("role", profileData.role);
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("role");
+        })
+        .finally(() => {
+          setIsRestoringSession(false);
+        });
+    }
+  }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
     setCurrentUser(null);
     setSuccess("");
     setError("");
   };
 
-  const handleDemoLogin = async (roleName) => {
-    let demoEmail = "";
-    let demoPass = "";
-    if (roleName === "STUDENT") {
-      demoEmail = "student@pathfinder.edu";
-      demoPass = "StudentSecurePass123!";
-    } else if (roleName === "TEACHER") {
-      demoEmail = "turing.prof@pathfinder.edu";
-      demoPass = "TeacherSecurePass123!";
-    } else if (roleName === "ADMIN") {
-      demoEmail = "lovelace.admin@pathfinder.edu";
-      demoPass = "AdminSecurePass123!";
-    }
 
-    setEmail(demoEmail);
-    setPassword(demoPass);
-    setIsLoading(true);
-    setError("");
-    setSuccess("");
-
-    try {
-      const response = await fetch("/api/auth/token", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          username: demoEmail,
-          password: demoPass,
-        }),
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.detail || "Incorrect email or password");
-      }
-
-      const profileResponse = await fetch("/api/users/me", {
-        headers: {
-          "Authorization": `Bearer ${data.access_token}`
-        }
-      });
-
-      if (!profileResponse.ok) {
-        throw new Error("Failed to fetch user profile");
-      }
-
-      const profileData = await profileResponse.json();
-      setSuccess("Logged in securely as Demo User!");
-      setCurrentUser(profileData);
-    } catch (err) {
-      setError(err.message || "Failed to login through server");
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -134,6 +123,9 @@ export default function Login() {
       }
 
       const profileData = await profileResponse.json();
+      localStorage.setItem("token", data.access_token);
+      localStorage.setItem("role", profileData.role);
+      setUserRole(profileData.role);
       setSuccess("Successfully logged in!");
       setCurrentUser(profileData);
     } catch (err) {
@@ -142,6 +134,61 @@ export default function Login() {
       setIsLoading(false);
     }
   };
+
+function DashboardSkeleton({ role }) {
+  let sidebarBg = "bg-[#0c2356]"; // Default Student Portal dark blue
+  if (role === "TEACHER") {
+    sidebarBg = "bg-emerald-950"; // Teacher Portal dark green
+  } else if (role === "SCHOOL_ADMIN" || role === "SUPER_ADMIN") {
+    sidebarBg = "bg-slate-900 border-r border-slate-800"; // Admin Portal dark gray
+  }
+
+  return (
+    <div className="flex h-screen w-full bg-[#f8fafc] animate-pulse">
+      {/* Sidebar Skeleton */}
+      <div className={`hidden w-64 ${sidebarBg} p-6 md:flex flex-col gap-6`}>
+        <div className="h-10 w-32 rounded-lg bg-white/10"></div>
+        <div className="h-6 w-full rounded bg-white/10 mt-8"></div>
+        <div className="h-6 w-full rounded bg-white/10"></div>
+        <div className="h-6 w-full rounded bg-white/10"></div>
+      </div>
+      
+      {/* Main Content Skeleton */}
+      <div className="flex-1 flex flex-col p-6 lg:p-10 gap-6 overflow-hidden">
+        {/* Header Skeleton */}
+        <div className="flex items-center justify-between">
+          <div className="h-8 w-48 rounded bg-slate-200"></div>
+          <div className="flex items-center gap-4">
+            <div className="h-10 w-10 rounded-full bg-slate-200"></div>
+            <div className="h-10 w-24 rounded-lg bg-slate-200"></div>
+          </div>
+        </div>
+        
+        {/* Welcome Banner Skeleton */}
+        <div className="h-40 w-full rounded-2xl bg-slate-200"></div>
+        
+        {/* Stats Cards Skeleton Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="h-24 rounded-xl bg-slate-200"></div>
+          <div className="h-24 rounded-xl bg-slate-200"></div>
+          <div className="h-24 rounded-xl bg-slate-200"></div>
+          <div className="h-24 rounded-xl bg-slate-200"></div>
+        </div>
+        
+        {/* Lower layout split */}
+        <div className="flex flex-col lg:flex-row gap-6 flex-1">
+          <div className="flex-1 h-64 rounded-2xl bg-slate-200"></div>
+          <div className="w-full lg:w-80 h-64 rounded-2xl bg-slate-200"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+  // Render skeleton screen during server-side rendering (SSR) or session restoration to avoid flashing the login page
+  if (!isMounted || isRestoringSession) {
+    return <DashboardSkeleton role={userRole} />;
+  }
 
   // Render correct dashboard if logged in
   if (currentUser) {

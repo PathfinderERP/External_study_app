@@ -48,7 +48,12 @@ async def seed_users():
                 )
                 db.add(new_user)
             else:
-                print(f"User {user_data['email']} already exists. Skipping.")
+                print(f"Updating existing user: {user_data['email']}")
+                hashed_pw = get_password_hash(user_data["password"])
+                existing_user.hashed_password = hashed_pw
+                existing_user.full_name = user_data["full_name"]
+                existing_user.role = user_data["role"]
+                existing_user.is_active = True
                 
         await db.commit()
     print("Database seeding completed.")
