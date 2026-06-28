@@ -61,6 +61,12 @@ async def shutdown_event():
 def read_root():
     return {"message": "Welcome to Student Portal API"}
 
+@app.get("/config")
+def get_config():
+    return {
+        "google_client_id": os.getenv("NEXT_PUBLIC_GOOGLE_CLIENT_ID") or os.getenv("GOOGLE_CLIENT_ID")
+    }
+
 from pydantic import BaseModel, EmailStr
 
 class UserRegister(BaseModel):

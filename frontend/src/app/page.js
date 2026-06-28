@@ -42,6 +42,7 @@ export default function Login() {
   // User session state
   const [currentUser, setCurrentUser] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [googleClientId, setGoogleClientId] = useState(null);
   const [userRole, setUserRole] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("role") || "STUDENT";
@@ -58,6 +59,14 @@ export default function Login() {
   // Auto-restore session from localStorage on reload
   useEffect(() => {
     setIsMounted(true);
+
+    // Fetch dynamic client configuration (runtime env variables)
+    fetch("/api/config")
+      .then(res => res.json())
+      .then(data => {
+        setGoogleClientId(data.google_client_id);
+      })
+      .catch(() => {});
 
     // Load Google Identity Services script
     const script = document.createElement("script");
@@ -293,7 +302,7 @@ export default function Login() {
   };
 
   const handleGoogleClick = () => {
-    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+    const clientId = googleClientId;
     
     if (clientId && clientId !== "your_google_client_id.apps.googleusercontent.com" && window.google) {
       try {
