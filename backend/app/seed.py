@@ -10,7 +10,7 @@ async def seed_users():
     print("Seeding default user credentials...")
     async with SessionLocal() as db:
         # Default credentials to insert
-        users_to_seed = [
+        users_to_seed: list[dict] = [
             {
                 "email": os.getenv("DEMO_STUDENT_EMAIL", "student@pathfinder.edu"),
                 "password": os.getenv("DEMO_STUDENT_PASSWORD", "StudentSecurePass123!"),

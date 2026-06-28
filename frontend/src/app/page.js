@@ -14,7 +14,8 @@ import {
   Bell,
   ArrowLeft,
   Mail,
-  UserPlus
+  UserPlus,
+  Phone
 } from "lucide-react";
 
 // Import custom dashboards
@@ -33,9 +34,12 @@ export default function Login() {
 
   // Registration & Google Mock States
   const [view, setView] = useState("login"); // "login" or "signup"
+  const [signupStep, setSignupStep] = useState(1); // 1: details, 2: OTP verification
   const [signupName, setSignupName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
-  const [signupPassword, setSignupPassword] = useState("");
+  const [signupPhone, setSignupPhone] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [registeredCreds, setRegisteredCreds] = useState(null); // stores credentials after successful registration
   const [signupRole, setSignupRole] = useState("STUDENT");
   const [showGoogleModal, setShowGoogleModal] = useState(false);
 
@@ -163,12 +167,48 @@ export default function Login() {
     }
   };
 
+  const sendOtpCode = async (e) => {
+    if (e) e.preventDefault();
+    setError("");
+    setSuccess("");
+    if (!signupName || !signupEmail || !signupPhone) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/auth/send-otp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: signupEmail,
+          phone_number: signupPhone,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.detail || "Failed to send verification code.");
+      }
+
+      setSuccess("Verification code sent to your email and phone!");
+      setSignupStep(2);
+    } catch (err) {
+      setError(err.message || "Something went wrong.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-    if (!signupName || !signupEmail || !signupPassword) {
-      setError("Please fill in all fields.");
+    if (!otpCode) {
+      setError("Please enter the verification code.");
       return;
     }
 
@@ -181,9 +221,9 @@ export default function Login() {
         },
         body: JSON.stringify({
           email: signupEmail,
-          password: signupPassword,
           full_name: signupName,
-          role: signupRole,
+          phone_number: signupPhone,
+          otp_code: otpCode,
         }),
       });
 
@@ -192,8 +232,7 @@ export default function Login() {
         throw new Error(data.detail || "Registration failed.");
       }
 
-      setSuccess("Account created successfully! Logging you in...");
-      
+      // Automatically log the user in using the generated credentials returned by the backend
       const loginResponse = await fetch("/api/auth/token", {
         method: "POST",
         headers: {
@@ -201,7 +240,7 @@ export default function Login() {
         },
         body: new URLSearchParams({
           username: signupEmail,
-          password: signupPassword,
+          password: data.generated_password,
         }),
       });
 
@@ -210,6 +249,7 @@ export default function Login() {
         throw new Error(loginData.detail || "Authentication failed after registration.");
       }
 
+      // Fetch user profile info
       const profileResponse = await fetch("/api/users/me", {
         headers: {
           "Authorization": `Bearer ${loginData.access_token}`
@@ -221,10 +261,19 @@ export default function Login() {
       }
 
       const profileData = await profileResponse.json();
+      
+      // Store credentials and session token
       localStorage.setItem("token", loginData.access_token);
       localStorage.setItem("role", profileData.role);
-      setUserRole(profileData.role);
-      setCurrentUser(profileData);
+      
+      // Save credentials to show the success credentials popup card
+      setRegisteredCreds({
+        email: signupEmail,
+        password: data.generated_password,
+        token: loginData.access_token,
+        profile: profileData
+      });
+      setSuccess("Account verified and created successfully!");
     } catch (err) {
       setError(err.message || "Something went wrong.");
     } finally {
@@ -306,15 +355,18 @@ export default function Login() {
     
     if (clientId && clientId !== "your_google_client_id.apps.googleusercontent.com" && window.google) {
       try {
-        window.google.accounts.id.initialize({
+        // Use standard Popup-based Google Token Client flow
+        // This is 100% reliable on localhost and completely bypasses FedCM browser restrictions
+        const client = window.google.accounts.oauth2.initTokenClient({
           client_id: clientId,
+          scope: "openid email profile",
           callback: (response) => {
-            if (response.credential) {
-              handleGoogleLogin(null, response.credential);
+            if (response.access_token) {
+              handleGoogleLogin(null, response.access_token);
             }
           }
         });
-        window.google.accounts.id.prompt();
+        client.requestAccessToken();
       } catch (e) {
         setShowGoogleModal(true);
       }
@@ -373,8 +425,13 @@ function DashboardSkeleton({ role }) {
   );
 }
 
-  // Render skeleton screen during server-side rendering (SSR) or session restoration to avoid flashing the login page
-  if (!isMounted || isRestoringSession) {
+  // Render a clean background container during server-side rendering (SSR) or hydration to prevent layout flashing
+  if (!isMounted) {
+    return <div className="min-h-screen w-full bg-[#dbe4f4]"></div>;
+  }
+
+  // Render dashboard skeleton only during session restoration
+  if (isRestoringSession) {
     return <DashboardSkeleton role={userRole} />;
   }
 
@@ -656,110 +713,189 @@ function DashboardSkeleton({ role }) {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleRegister} className="space-y-4">
-                  {/* Full Name */}
-                  <div className="space-y-1">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
-                      Full Name
-                    </label>
-                    <div className="relative flex items-center">
-                      <span className="absolute left-4 text-zinc-400">
-                        <User className="h-5 w-5" />
-                      </span>
-                      <input
-                        type="text"
-                        value={signupName}
-                        onChange={(e) => setSignupName(e.target.value)}
-                        placeholder="Enter your full name"
-                        className="w-full rounded-xl border border-zinc-200 py-2.5 pl-12 pr-4 text-sm text-zinc-800 outline-none transition-all placeholder:text-zinc-400 focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8]"
-                        required
-                      />
-                    </div>
-                  </div>
+                <form onSubmit={signupStep === 1 ? sendOtpCode : handleRegister} className="space-y-4">
+                  {signupStep === 1 ? (
+                    <>
+                      {/* Full Name */}
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                          Full Name
+                        </label>
+                        <div className="relative flex items-center">
+                          <span className="absolute left-4 text-zinc-400">
+                            <User className="h-5 w-5" />
+                          </span>
+                          <input
+                            type="text"
+                            value={signupName}
+                            onChange={(e) => setSignupName(e.target.value)}
+                            placeholder="Enter your full name"
+                            className="w-full rounded-xl border border-zinc-200 py-2.5 pl-12 pr-4 text-sm text-zinc-800 outline-none transition-all placeholder:text-zinc-400 focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8]"
+                            required
+                          />
+                        </div>
+                      </div>
 
-                  {/* Email */}
-                  <div className="space-y-1">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
-                      Email Address
-                    </label>
-                    <div className="relative flex items-center">
-                      <span className="absolute left-4 text-zinc-400">
-                        <Mail className="h-5 w-5" />
-                      </span>
-                      <input
-                        type="email"
-                        value={signupEmail}
-                        onChange={(e) => setSignupEmail(e.target.value)}
-                        placeholder="Enter email address"
-                        className="w-full rounded-xl border border-zinc-200 py-2.5 pl-12 pr-4 text-sm text-zinc-800 outline-none transition-all placeholder:text-zinc-400 focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8]"
-                        required
-                      />
-                    </div>
-                  </div>
+                      {/* Email */}
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                          Email Address
+                        </label>
+                        <div className="relative flex items-center">
+                          <span className="absolute left-4 text-zinc-400">
+                            <Mail className="h-5 w-5" />
+                          </span>
+                          <input
+                            type="email"
+                            value={signupEmail}
+                            onChange={(e) => setSignupEmail(e.target.value)}
+                            placeholder="Enter email address"
+                            className="w-full rounded-xl border border-zinc-200 py-2.5 pl-12 pr-4 text-sm text-zinc-800 outline-none transition-all placeholder:text-zinc-400 focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8]"
+                            required
+                          />
+                        </div>
+                      </div>
 
-                  {/* Password */}
-                  <div className="space-y-1">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
-                      Password
-                    </label>
-                    <div className="relative flex items-center">
-                      <span className="absolute left-4 text-zinc-400">
-                        <Lock className="h-5 w-5" />
-                      </span>
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        value={signupPassword}
-                        onChange={(e) => setSignupPassword(e.target.value)}
-                        placeholder="Choose a password"
-                        className="w-full rounded-xl border border-zinc-200 py-2.5 pl-12 pr-12 text-sm text-zinc-800 outline-none transition-all placeholder:text-zinc-400 focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8]"
-                        required
-                      />
+                      {/* Phone Number */}
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                          Phone Number
+                        </label>
+                        <div className="relative flex items-center">
+                          <span className="absolute left-4 text-zinc-400">
+                            <Phone className="h-5 w-5" />
+                          </span>
+                          <input
+                            type="tel"
+                            value={signupPhone}
+                            onChange={(e) => setSignupPhone(e.target.value)}
+                            placeholder="Enter phone number"
+                            className="w-full rounded-xl border border-zinc-200 py-2.5 pl-12 pr-4 text-sm text-zinc-800 outline-none transition-all placeholder:text-zinc-400 focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8]"
+                            required
+                          />
+                        </div>
+                      </div>
+
+                      {/* Submit Button Step 1 */}
                       <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 text-zinc-400 hover:text-zinc-600 focus:outline-none"
+                        type="submit"
+                        disabled={isLoading}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:bg-zinc-400 mt-2"
                       >
-                        {showPassword ? (
-                          <EyeOff className="h-5 w-5" />
+                        {isLoading ? (
+                          <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
                         ) : (
-                          <Eye className="h-5 w-5" />
+                          <>
+                            <UserPlus className="h-5 w-5" />
+                            <span>Send Verification Code</span>
+                          </>
                         )}
                       </button>
+                    </>
+                  ) : (
+                    <>
+                      {/* OTP Verification Code */}
+                      <div className="space-y-2">
+                        <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
+                          Verification Code
+                        </label>
+                        <p className="text-xs text-zinc-500 leading-normal">
+                          We've sent a 6-digit OTP code to <strong className="text-zinc-700">{signupEmail}</strong> and your phone. Enter the code below to complete your registration.
+                        </p>
+                        <div className="relative flex items-center">
+                          <span className="absolute left-4 text-zinc-400">
+                            <Lock className="h-5 w-5" />
+                          </span>
+                          <input
+                            type="text"
+                            maxLength={6}
+                            value={otpCode}
+                            onChange={(e) => setOtpCode(e.target.value)}
+                            placeholder="Enter 6-digit OTP"
+                            className="w-full rounded-xl border border-zinc-200 py-2.5 pl-12 pr-4 text-sm text-zinc-800 outline-none tracking-widest font-bold placeholder:tracking-normal transition-all placeholder:text-zinc-400 focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8]"
+                            required
+                          />
+                        </div>
+                        <p className="text-[10px] text-zinc-400">💡 Tip: For testing, you can also use <strong className="text-zinc-600">123456</strong>.</p>
+                      </div>
+
+                      {/* Submit Button Step 2 */}
+                      <button
+                        type="submit"
+                        disabled={isLoading}
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:bg-zinc-400 mt-2"
+                      >
+                        {isLoading ? (
+                          <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                        ) : (
+                          <>
+                            <UserPlus className="h-5 w-5" />
+                            <span>Verify & Create Account</span>
+                          </>
+                        )}
+                      </button>
+
+                      {/* Back button */}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSignupStep(1);
+                          setError("");
+                          setSuccess("");
+                        }}
+                        className="w-full text-center text-xs font-semibold text-zinc-500 hover:text-zinc-700 focus:outline-none mt-2"
+                      >
+                        Change Details / Go Back
+                      </button>
+                    </>
+                  )}
+                </form>
+              </>
+            )}
+
+            {/* Registration Success Credentials Modal */}
+            {registeredCreds && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 text-slate-800">
+                <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl animate-in fade-in zoom-in duration-200 border border-zinc-100">
+                  <div className="text-center mb-6">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-4">
+                      <UserPlus className="h-8 w-8" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-zinc-900">Account Created!</h3>
+                    <p className="text-sm text-zinc-500 mt-1">
+                      Your login credentials have been sent to your verified email:
+                    </p>
+                    <p className="text-sm font-semibold text-[#1e4cd8] mt-1">{registeredCreds.email}</p>
+                  </div>
+
+                  <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 space-y-3 mb-6">
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Username / Email</span>
+                      <p className="text-sm font-semibold text-zinc-800">{registeredCreds.email}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold uppercase tracking-wider text-zinc-400">Generated Password</span>
+                      <p className="text-sm font-mono font-bold text-zinc-800 select-all bg-white py-1.5 px-3 rounded border border-zinc-200 mt-1">
+                        {registeredCreds.password}
+                      </p>
+                      <p className="text-[10px] text-zinc-400 mt-1">💡 Tip: Copy this password to log in. You can change it later.</p>
                     </div>
                   </div>
 
-                  {/* Role Select Dropdown */}
-                  <div className="space-y-1">
-                    <label className="text-xs font-bold uppercase tracking-wider text-zinc-700">
-                      Account Role
-                    </label>
-                    <select
-                      value={signupRole}
-                      onChange={(e) => setSignupRole(e.target.value)}
-                      className="w-full rounded-xl border border-zinc-200 py-2.5 px-4 text-sm text-zinc-800 outline-none transition-all focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#1e4cd8] bg-white cursor-pointer"
-                    >
-                      <option value="STUDENT">Student</option>
-                      <option value="TEACHER">Teacher</option>
-                    </select>
-                  </div>
-
-                  {/* Submit Button */}
                   <button
-                    type="submit"
-                    disabled={isLoading}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:bg-zinc-400 mt-2"
+                    onClick={() => {
+                      setUserRole(registeredCreds.profile.role);
+                      setCurrentUser(registeredCreds.profile);
+                      setRegisteredCreds(null);
+                      setSignupStep(1);
+                      setView("login");
+                    }}
+                    className="w-full rounded-xl bg-[#1e4cd8] py-3 text-sm font-bold text-white transition-all hover:bg-[#1a44c2] focus:outline-none"
                   >
-                    {isLoading ? (
-                      <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                    ) : (
-                      <>
-                        <UserPlus className="h-5 w-5" />
-                        <span>Create Account</span>
-                      </>
-                    )}
+                    Go to Student Dashboard
                   </button>
-                </form>
-              </>
+                </div>
+              </div>
             )}
 
             {/* Google Identity Mock Account Selection Modal Overlay */}

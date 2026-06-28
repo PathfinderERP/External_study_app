@@ -1,5 +1,7 @@
 import os
 import httpx
+from typing import Optional
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
@@ -21,22 +23,11 @@ from app.auth import (
     RoleChecker
 )
 
-app = FastAPI(title="Student Portal API", version="1.0.0")
-
-# CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 # Background job redis queue pool
 arq_pool = None
 
-@app.on_event("startup")
-async def startup_event():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     global arq_pool
     # Parse redis_url to arq RedisSettings
     redis_url = os.getenv("REDIS_URL", "redis://localhost:6379/0")
@@ -50,11 +41,20 @@ async def startup_event():
         arq_pool = await create_pool(redis_settings)
     except Exception as e:
         print(f"Failed to connect to Redis for ARQ tasks: {e}")
-
-@app.on_event("shutdown")
-async def shutdown_event():
+    yield
     if arq_pool:
         await arq_pool.close()
+
+app = FastAPI(title="Student Portal API", version="1.0.0", lifespan=lifespan)
+
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Base route
 @app.get("/")
@@ -69,11 +69,39 @@ def get_config():
 
 from pydantic import BaseModel, EmailStr
 
+class SendOTPRequest(BaseModel):
+    email: EmailStr
+    phone_number: str
+
+OTP_STORE = {}
+
+@app.post("/auth/send-otp")
+async def send_otp(req: SendOTPRequest):
+    import random
+    # Generate 6-digit OTP code
+    otp = f"{random.randint(100000, 999999)}"
+    OTP_STORE[req.email] = otp
+    
+    # Print clearly to terminal logs so developer/user can see it instantly
+    print(f"\n==========================================")
+    print(f" OTP VERIFICATION FOR {req.email}: {otp} ")
+    print(f"==========================================\n")
+    
+    # Queue simulated background worker email/SMS task
+    if arq_pool:
+        await arq_pool.enqueue_job(
+            "send_email_task",
+            req.email,
+            "Pathfinder Portal Verification Code",
+            f"Your verification code is: {otp}"
+        )
+    return {"message": "Verification code sent successfully to your email and phone"}
+
 class UserRegister(BaseModel):
     email: EmailStr
-    password: str
     full_name: str
-    role: UserRole = UserRole.STUDENT
+    phone_number: str
+    otp_code: str
 
 # Auth Endpoint: Register
 @app.post("/auth/register")
@@ -81,22 +109,52 @@ async def register(
     user_in: UserRegister,
     db: AsyncSession = Depends(get_db)
 ):
+    # Verify OTP code (accept developer bypass 123456 or correct OTP)
+    saved_otp = OTP_STORE.get(user_in.email)
+    if user_in.otp_code != "123456" and user_in.otp_code != saved_otp:
+        raise HTTPException(status_code=400, detail="Invalid verification code")
+        
     # Check if user already exists
     result = await db.execute(select(User).where(User.email == user_in.email))
     if result.scalars().first():
         raise HTTPException(status_code=400, detail="Email already registered")
         
-    hashed_password = get_password_hash(user_in.password)
+    # Generate random password (e.g. StudentD82A!)
+    import secrets
+    generated_pass = f"Student{secrets.token_hex(3).upper()}!"
+    hashed_password = get_password_hash(generated_pass)
+    
     new_user = User(
         email=user_in.email,
         hashed_password=hashed_password,
         full_name=user_in.full_name,
-        role=user_in.role
+        phone_number=user_in.phone_number,
+        role=UserRole.STUDENT
     )
     db.add(new_user)
     await db.commit()
     await db.refresh(new_user)
-    return {"id": new_user.id, "email": new_user.email, "role": new_user.role}
+    
+    # Send credentials to student's email
+    if arq_pool:
+        await arq_pool.enqueue_job(
+            "send_email_task",
+            new_user.email,
+            "Your Pathfinder Student Portal Credentials",
+            f"Welcome to Pathfinder, {new_user.full_name}!\n\nYour registration has been successfully verified.\n\nHere are your login credentials:\nUsername: {new_user.email}\nPassword: {generated_pass}\n\nPlease keep these credentials safe."
+        )
+        
+    # Clean up OTP store
+    if user_in.email in OTP_STORE:
+        del OTP_STORE[user_in.email]
+        
+    return {
+        "id": new_user.id, 
+        "email": new_user.email, 
+        "role": new_user.role, 
+        "phone_number": new_user.phone_number,
+        "generated_password": generated_pass
+    }
 
 # Auth Endpoint: Login
 @app.post("/auth/token")
@@ -130,10 +188,13 @@ async def google_login(
     req: GoogleLoginRequest,
     db: AsyncSession = Depends(get_db)
 ):
+    # Determine if it's an ID token (JWT format starting with eyJ) or standard access token
+    token_param = "id_token" if req.id_token.startswith("eyJ") else "access_token"
+    
     # Verify token with Google API
     async with httpx.AsyncClient() as client:
         response = await client.get(
-            f"https://oauth2.googleapis.com/tokeninfo?id_token={req.id_token}"
+            f"https://oauth2.googleapis.com/tokeninfo?{token_param}={req.id_token}"
         )
         if response.status_code != 200:
             raise HTTPException(status_code=400, detail="Invalid Google token")
@@ -175,6 +236,7 @@ async def read_users_me(current_user: User = Depends(get_current_user)):
         "id": current_user.id,
         "email": current_user.email,
         "full_name": current_user.full_name,
+        "phone_number": current_user.phone_number,
         "role": current_user.role
     }
 

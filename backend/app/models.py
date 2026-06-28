@@ -1,8 +1,11 @@
 import enum
 from sqlalchemy import String, Enum, Boolean, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
-from datetime import datetime
+from datetime import datetime, timezone
 from app.database import Base
+
+def utc_now():
+    return datetime.now(timezone.utc).replace(tzinfo=None)
 
 class UserRole(str, enum.Enum):
     SUPER_ADMIN = "SUPER_ADMIN"
@@ -19,6 +22,7 @@ class User(Base):
     hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
     full_name: Mapped[str] = mapped_column(String(255), nullable=True)
     role: Mapped[UserRole] = mapped_column(Enum(UserRole), default=UserRole.STUDENT, nullable=False)
+    phone_number: Mapped[str] = mapped_column(String(20), nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
-    created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, default=utc_now, onupdate=utc_now, nullable=False)
