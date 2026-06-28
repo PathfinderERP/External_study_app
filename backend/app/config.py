@@ -1,5 +1,4 @@
-from pydantic_settings import BaseSettings
-from pydantic import ConfigDict
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     DATABASE_URL: str = "postgresql+asyncpg://postgres:password@localhost:5432/student_portal"
@@ -24,6 +23,6 @@ class Settings(BaseSettings):
     SMTP_PASSWORD: str = "your_smtp_password"
     SMTP_FROM: str = "info@yourdomain.com"
 
-    model_config = ConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 settings = Settings()
