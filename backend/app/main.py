@@ -1,4 +1,5 @@
 import os
+import httpx
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
@@ -60,26 +61,31 @@ async def shutdown_event():
 def read_root():
     return {"message": "Welcome to Student Portal API"}
 
+from pydantic import BaseModel, EmailStr
+
+class UserRegister(BaseModel):
+    email: EmailStr
+    password: str
+    full_name: str
+    role: UserRole = UserRole.STUDENT
+
 # Auth Endpoint: Register
 @app.post("/auth/register")
 async def register(
-    email: str,
-    password: str,
-    full_name: str,
-    role: UserRole = UserRole.STUDENT,
+    user_in: UserRegister,
     db: AsyncSession = Depends(get_db)
 ):
     # Check if user already exists
-    result = await db.execute(select(User).where(User.email == email))
+    result = await db.execute(select(User).where(User.email == user_in.email))
     if result.scalars().first():
         raise HTTPException(status_code=400, detail="Email already registered")
         
-    hashed_password = get_password_hash(password)
+    hashed_password = get_password_hash(user_in.password)
     new_user = User(
-        email=email,
+        email=user_in.email,
         hashed_password=hashed_password,
-        full_name=full_name,
-        role=role
+        full_name=user_in.full_name,
+        role=user_in.role
     )
     db.add(new_user)
     await db.commit()
@@ -109,6 +115,52 @@ async def login(
         "token_type": "bearer",
         "role": user.role
     }
+
+class GoogleLoginRequest(BaseModel):
+    id_token: str
+
+@app.post("/auth/google")
+async def google_login(
+    req: GoogleLoginRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    # Verify token with Google API
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"https://oauth2.googleapis.com/tokeninfo?id_token={req.id_token}"
+        )
+        if response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Invalid Google token")
+        
+        google_data = response.json()
+        
+    email = google_data.get("email")
+    full_name = google_data.get("name", "Google User")
+    
+    if not email:
+        raise HTTPException(status_code=400, detail="Google token does not contain email")
+        
+    # Check if user exists, else create them with STUDENT role
+    result = await db.execute(select(User).where(User.email == email))
+    user = result.scalars().first()
+    
+    if not user:
+        # Generate a secure dummy password for database constraint since they use Google SSO
+        random_pass = get_password_hash(os.urandom(24).hex())
+        user = User(
+            email=email,
+            hashed_password=random_pass,
+            full_name=full_name,
+            role=UserRole.STUDENT,
+            is_active=True
+        )
+        db.add(user)
+        await db.commit()
+        await db.refresh(user)
+        
+    # Generate JWT token
+    access_token = create_access_token(data={"sub": user.email, "role": user.role})
+    return {"access_token": access_token, "token_type": "bearer", "role": user.role}
 
 # Profile Endpoint (Requires authentication)
 @app.get("/users/me")
