@@ -29,6 +29,9 @@ export default function Overview({ user, onLogout }) {
 
         /* TABLET STYLING */
         @media (max-width: 1024px) {
+          .box_model {
+            padding-top: 25px !important;
+          }
           .text_box {
             margin: 0 15px !important;
           }
@@ -280,7 +283,7 @@ export default function Overview({ user, onLogout }) {
                       background: "linear-gradient(90deg, rgba(255, 255, 255, 0.378) 0%, rgba(255, 255, 255, 0.1008) 100%)",
                       border: "1px solid #FFFFFF45",
                       borderRadius: "3px",
-                      padding: "8px 15px",
+                      padding: "20px 20px",
                       gap: "20px"
                     }}
                   >
@@ -288,7 +291,7 @@ export default function Overview({ user, onLogout }) {
                       className="left_item"
                       style={{
                         width: "55px",
-                        height: "46px",
+                        height: "55px",
                         borderRadius: "3px",
                         backgroundColor: "#DF7416"
                       }}
@@ -330,7 +333,7 @@ export default function Overview({ user, onLogout }) {
         {/* OVERLAPPING ROTATED CARDS WRAPPER */}
         <div className="cards_scroll_wrapper">
           <div
-            className="card_main_subject_list flex flex-wrap lg:flex-nowrap items-center justify-center gap-6 lg:gap-0 relative z-[55] mb-[-240px] pt-[110px]"
+            className="card_main_subject_list flex flex-wrap lg:flex-nowrap items-center justify-center gap-6 lg:gap-0 relative z-[55] mb-[-240px] pt-2"
             style={{ height: "auto" }}
           >
             {/* Attendance Card */}

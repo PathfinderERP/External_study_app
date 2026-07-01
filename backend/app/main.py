@@ -35,7 +35,9 @@ async def lifespan(app: FastAPI):
     redis_settings = RedisSettings(
         host=url.hostname or "localhost",
         port=url.port or 6379,
-        database=int(url.path.lstrip("/")) if url.path else 0
+        password=url.password,
+        database=int(url.path.lstrip("/")) if url.path else 0,
+        ssl=True if url.scheme == "rediss" else False
     )
     try:
         arq_pool = await create_pool(redis_settings)

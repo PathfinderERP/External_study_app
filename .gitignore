@@ -3,11 +3,11 @@ node_modules/
 .next/
 out/
 build/
-frontend/.env
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+# Env files (global protection)
+.env
+.env.*
+**/.env
+**/.env.*
 
 # Python
 .venv/
@@ -16,7 +16,6 @@ ENV/
 __pycache__/
 *.py[cod]
 *$py.class
-backend/.env
 
 # IDEs / Editors
 .idea/
