@@ -34,3 +34,32 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+
+================================
+
+changing the docker-compose.yml file does not automatically update or apply to already running containers. You must tell Docker Compose to apply the new environment settings.
+
+To apply the hot-reloading fix, please follow these steps:
+
+Step 1: Recreate the Containers
+Run this command from your root directory (f:\External_study_app):
+
+powershell
+# docker compose up -d --build
+Docker will detect the changes in docker-compose.yml and recreate the frontend container with the WATCHPACK_POLLING=true setting.
+
+Step 2: Clear Next.js Cache (If hot reloading is still stuck)
+Next.js caches build data inside the .next directory. If it fails to update after recreating the container, clear the cache and restart the frontend:
+
+Delete the .next cache directory in your frontend folder:
+powershell
+# Remove-Item -Recurse -Force f:\External_study_app\frontend\.next
+
+
+Restart the frontend container:
+powershell
+# docker compose restart frontend
+
+================================

@@ -24,3 +24,29 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom Scrollbar Styles for the App */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c061a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #321c54;
+  border-radius: 8px;
+  border: 2px solid #0c061a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4e2b82;
+}
+
+/* Firefox scrollbar compatibility */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #321c54 #0c061a;
+}

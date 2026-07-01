@@ -376,17 +376,24 @@ export default function Login() {
   };
 
 function DashboardSkeleton({ role }) {
-  let sidebarBg = "bg-[#0c2356]"; // Default Student Portal dark blue
+  let sidebarBg = "bg-[#0c061a] border-r border-white/5"; // Student Portal dark violet-black
+  let mainBg = "bg-[#f8fafc]";
+  let skeletonCardBg = "bg-slate-200/70";
+
   if (role === "TEACHER") {
     sidebarBg = "bg-emerald-950"; // Teacher Portal dark green
   } else if (role === "SCHOOL_ADMIN" || role === "SUPER_ADMIN") {
     sidebarBg = "bg-slate-900 border-r border-slate-800"; // Admin Portal dark gray
+  } else if (role === "STUDENT") {
+    sidebarBg = "bg-[#0c061a] border-r border-white/5";
+    mainBg = "bg-black";
+    skeletonCardBg = "bg-white/5";
   }
 
   return (
-    <div className="flex h-screen w-full bg-[#f8fafc]">
+    <div className={`flex h-screen w-full ${mainBg}`}>
       {/* Sidebar Skeleton */}
-      <div className={`hidden w-64 ${sidebarBg} p-6 md:flex flex-col gap-6`}>
+      <div className={`hidden w-72 ${sidebarBg} p-6 md:flex flex-col gap-6`}>
         <div className="h-10 w-32 rounded-lg bg-white/5 animate-pulse"></div>
         <div className="h-6 w-full rounded bg-white/5 mt-8 animate-pulse"></div>
         <div className="h-6 w-full rounded bg-white/5 animate-pulse"></div>
@@ -397,28 +404,28 @@ function DashboardSkeleton({ role }) {
       <div className="flex-1 flex flex-col p-6 lg:p-10 gap-6 overflow-hidden">
         {/* Header Skeleton */}
         <div className="flex items-center justify-between">
-          <div className="h-8 w-48 rounded bg-slate-200/70 animate-pulse"></div>
+          <div className={`h-8 w-48 rounded ${skeletonCardBg} animate-pulse`}></div>
           <div className="flex items-center gap-4">
-            <div className="h-10 w-10 rounded-full bg-slate-200/70 animate-pulse"></div>
-            <div className="h-10 w-24 rounded-lg bg-slate-200/70 animate-pulse"></div>
+            <div className={`h-10 w-10 rounded-full ${skeletonCardBg} animate-pulse`}></div>
+            <div className={`h-10 w-24 rounded-lg ${skeletonCardBg} animate-pulse`}></div>
           </div>
         </div>
         
         {/* Welcome Banner Skeleton */}
-        <div className="h-40 w-full rounded-2xl bg-slate-200/70 animate-pulse"></div>
+        <div className={`h-40 w-full rounded-2xl ${skeletonCardBg} animate-pulse`}></div>
         
         {/* Stats Cards Skeleton Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-pulse">
-          <div className="h-24 rounded-xl bg-slate-200/70"></div>
-          <div className="h-24 rounded-xl bg-slate-200/70"></div>
-          <div className="h-24 rounded-xl bg-slate-200/70"></div>
-          <div className="h-24 rounded-xl bg-slate-200/70"></div>
+          <div className={`h-24 rounded-xl ${skeletonCardBg}`}></div>
+          <div className={`h-24 rounded-xl ${skeletonCardBg}`}></div>
+          <div className={`h-24 rounded-xl ${skeletonCardBg}`}></div>
+          <div className={`h-24 rounded-xl ${skeletonCardBg}`}></div>
         </div>
         
         {/* Lower layout split */}
         <div className="flex flex-col lg:flex-row gap-6 flex-1 animate-pulse">
-          <div className="flex-1 h-64 rounded-2xl bg-slate-200/70"></div>
-          <div className="w-full lg:w-80 h-64 rounded-2xl bg-slate-200/70"></div>
+          <div className={`flex-1 h-64 rounded-2xl ${skeletonCardBg}`}></div>
+          <div className={`w-full lg:w-80 h-64 rounded-2xl ${skeletonCardBg}`}></div>
         </div>
       </div>
     </div>
