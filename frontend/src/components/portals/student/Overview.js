@@ -178,7 +178,7 @@ export default function Overview({ user, onLogout }) {
           className="absolute left-0 top-0 w-full h-[382px] -z-10 bg-gradient-to-b from-slate-200/50 to-transparent dark:bg-[linear-gradient(179.42deg,#4F6295_-71.87%,rgba(17,18,22,0.37)_90.36%),linear-gradient(0deg,rgba(0,0,0,0.2),rgba(0,0,0,0.2))]"
         />
 
-        <div className="text_box animate-fade-in" style={{ margin: "0 50px" }}>
+        <div className="text_box animate-fade-in px-4 md:px-[50px]">
           <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
             <div className="flex flex-wrap items-center justify-between gap-6 md:flex-nowrap">
               <div className="w-full md:w-[55%]">
@@ -479,7 +479,7 @@ export default function Overview({ user, onLogout }) {
           className="absolute inset-0 bg-[url('/images/student_portal_home_page/your_plan_bg.png')] bg-no-repeat bg-center bg-cover -z-30 opacity-0 dark:opacity-100"
         />
 
-        <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto", padding: "0 35px" }}>
+        <div className="container px-4 md:px-[35px]" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
             {/* MOBILE ONLY: Summary & History Cards placed after the rotated cards */}
             <div className="flex md:hidden flex-col gap-6 mb-12 relative z-10 w-full pt-4">
               {/* Academic Summary Card */}
@@ -733,7 +733,7 @@ export default function Overview({ user, onLogout }) {
           className="absolute inset-0 bg-[url('/images/student_portal_home_page/your_plan_bg.png')] bg-no-repeat bg-center bg-cover -z-30 opacity-0 dark:opacity-100"
         />
 
-        <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto", padding: "0 35px" }}>
+        <div className="container px-4 md:px-[35px]" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
 
           {/* Top AI Strategic Insight Card */}
           <div

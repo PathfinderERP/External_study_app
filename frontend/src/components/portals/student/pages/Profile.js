@@ -2,7 +2,7 @@ import React from 'react';
 import { Search, Bell, User, Mail, Phone, ShieldCheck, Wallet, Flame, TrendingUp, Award, Clock, ChevronRight, Zap, Target } from 'lucide-react';
 
 const ProfileCard = ({ title, children, className = "" }) => (
-  <div className={`bg-white dark:bg-[#0D0D0F] border border-slate-200 dark:border-white/5 rounded-[32px] p-8 shadow-2xl group hover:border-purple-500/20 transition-all duration-500 ${className}`}>
+  <div className={`bg-white dark:bg-[#0D0D0F] border border-slate-200 dark:border-white/5 rounded-[24px] md:rounded-[32px] p-6 md:p-8 shadow-2xl group hover:border-purple-500/20 transition-all duration-500 ${className}`}>
     <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 dark:text-white/40 mb-6">{title}</h3>
     {children}
   </div>
@@ -12,7 +12,7 @@ const Profile = ({ onNavigate, isSidebarCollapsed }) => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white font-manrope overflow-x-hidden selection:bg-purple-500/30">
 
-      <main className="pt-2 md:pt-6 pb-8 md:pb-32 max-w-[1440px] mx-auto px-4 md:px-8 lg:px-[80px] relative">
+      <main className="pt-2 md:pt-6 pb-8 md:pb-32 max-w-[1440px] mx-auto px-0 md:px-8 lg:px-[80px] relative">
 
         {/* Hero Section */}
         <div className="text-center mb-8 md:mb-16 mt-0 md:mt-8 relative">
