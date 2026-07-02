@@ -11,25 +11,22 @@ import Schedule from "./Schedule";
 export default function StudentPortal({ user, onLogout }) {
   const [activeTab, setActiveTab] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden font-sans transition-colors duration-300 bg-slate-50 dark:bg-black text-slate-900 dark:text-white">
       {/* Sidebar Component for Desktop */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        isMinimized={isSidebarMinimized}
+        setIsMinimized={setIsSidebarMinimized}
+      />
 
       {/* Mobile Drawer Sidebar */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-[999] flex md:hidden bg-black/60 backdrop-blur-sm transition-opacity duration-300">
           <div className="w-64 bg-[#0c061a] h-full flex flex-col relative shadow-2xl">
-            {/* Close Button inside drawer header */}
-            <div className="absolute top-5 right-4 z-[1000]">
-              <button 
-                onClick={() => setSidebarOpen(false)}
-                className="p-2 text-white/70 hover:text-white rounded-lg hover:bg-white/5"
-              >
-                <X className="h-6 w-6" />
-              </button>
-            </div>
             {/* Render Sidebar inside mobile container */}
             <Sidebar 
               activeTab={activeTab} 
@@ -38,6 +35,7 @@ export default function StudentPortal({ user, onLogout }) {
                 setSidebarOpen(false); // Close drawer after clicking item
               }} 
               isMobile={true}
+              onClose={() => setSidebarOpen(false)}
             />
           </div>
           {/* Click outside backdrop to close */}
