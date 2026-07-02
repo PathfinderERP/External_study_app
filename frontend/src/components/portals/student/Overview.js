@@ -228,7 +228,7 @@ export default function Overview({ user, onLogout }) {
                     </span>
                   </h1>
                   <p
-                    className="text-slate-700 dark:text-white font-thin text-[18px] leading-[1.4] my-[10px]"
+                    className="text-slate-700 dark:text-white font-normal text-[20px] md:text-[22px] leading-[1.4] my-[10px]"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     Your comprehensive learning snapshot is ready. We've analyzed your <br /> progress and prepared <strong>AI-powered insights</strong> for your goals today.
