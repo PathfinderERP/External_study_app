@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Bell, LogOut, Menu, X } from "lucide-react";
+import { Bell, LogOut, Menu, X, User } from "lucide-react";
 import Sidebar from "./Sidebar";
 import Overview from "./Overview";
 import { ThemeToggle } from "../../ThemeToggle";
@@ -26,6 +26,7 @@ export default function StudentPortal({ user, onLogout }) {
   const [activeTab, setActiveTab] = useState("overview");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden font-sans transition-colors duration-300 bg-slate-50 dark:bg-black text-slate-900 dark:text-white">
@@ -79,22 +80,53 @@ export default function StudentPortal({ user, onLogout }) {
               <span className="absolute top-2 right-2 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-[#0c061a]"></span>
             </button>
             <div className="h-6 md:h-8 w-[1px] bg-slate-200 dark:bg-white/10"></div>
-            <div className="flex items-center gap-2 md:gap-3 hover:bg-slate-50 dark:hover:bg-white/5 p-1.5 pr-3 md:pr-4 rounded-full transition-all duration-300 cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-white/10">
-              <div className="h-8 w-8 md:h-11 md:w-11 rounded-full overflow-hidden flex items-center justify-center bg-slate-100 border-2 border-white dark:bg-white/10 dark:border-slate-800 shadow-sm">
-                <img src={`https://api.dicebear.com/7.x/micah/svg?seed=${user?.full_name || 'Student'}`} alt="Profile Avatar" className="w-full h-full object-cover scale-110" />
+              <div className="relative">
+                <div 
+                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                  className="flex items-center gap-2 md:gap-3 hover:bg-slate-50 dark:hover:bg-white/5 p-1.5 pr-3 md:pr-4 rounded-full transition-all duration-300 cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-white/10"
+                >
+                  <div className="h-8 w-8 md:h-11 md:w-11 rounded-full overflow-hidden flex items-center justify-center bg-slate-100 border-2 border-white dark:bg-white/10 dark:border-slate-800 shadow-sm">
+                    <img src={`https://api.dicebear.com/7.x/micah/svg?seed=${user?.full_name || 'Student'}`} alt="Profile Avatar" className="w-full h-full object-cover scale-110" />
+                  </div>
+                  <div className="hidden text-left md:block">
+                    <p className="text-sm font-bold text-slate-800 dark:text-white leading-tight">{user?.full_name || "Demo Student"}</p>
+                    <p className="text-[11px] font-medium text-slate-500 dark:text-white/50">{user?.email}</p>
+                  </div>
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); onLogout(); }}
+                    className="hidden md:block ml-2 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-full transition-all duration-300 active:scale-95"
+                    title="Logout"
+                  >
+                    <LogOut className="h-[18px] w-[18px]" />
+                  </button>
+                </div>
+
+                {/* Mobile Profile Dropdown */}
+                {isProfileDropdownOpen && (
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#1a0e31] rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 overflow-hidden z-50 md:hidden animate-fade-in">
+                    <div className="p-4 border-b border-slate-100 dark:border-white/5">
+                      <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.full_name || "Demo Student"}</p>
+                      <p className="text-xs text-slate-500 dark:text-white/50 truncate">{user?.email}</p>
+                    </div>
+                    <div className="p-2">
+                      <button 
+                        onClick={() => { setActiveTab("profile"); setIsProfileDropdownOpen(false); }}
+                        className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 dark:text-white/80 hover:bg-slate-50 dark:hover:bg-white/5 rounded-xl transition-colors"
+                      >
+                        <User className="h-4 w-4" />
+                        Profile
+                      </button>
+                      <button 
+                        onClick={onLogout}
+                        className="w-full flex items-center gap-3 px-3 py-2 mt-1 text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-xl transition-colors"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Logout
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="hidden text-left md:block">
-                <p className="text-sm font-bold text-slate-800 dark:text-white leading-tight">{user?.full_name || "Demo Student"}</p>
-                <p className="text-[11px] font-medium text-slate-500 dark:text-white/50">{user?.email}</p>
-              </div>
-              <button 
-                onClick={onLogout}
-                className="ml-2 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-full transition-all duration-300 active:scale-95"
-                title="Logout"
-              >
-                <LogOut className="h-4 w-4 md:h-[18px] md:w-[18px]" />
-              </button>
-            </div>
           </div>
         </header>
 
