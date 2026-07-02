@@ -181,7 +181,7 @@ export default function Overview({ user, onLogout }) {
         <div className="text_box animate-fade-in" style={{ margin: "0 50px" }}>
           <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
             <div className="flex flex-wrap items-center justify-between gap-6 md:flex-nowrap">
-              <div className="w-full md:w-[66%]">
+              <div className="w-full md:w-[55%]">
                 <div className="left_content_box">
                   <em
                     className="line_text"
@@ -228,40 +228,63 @@ export default function Overview({ user, onLogout }) {
                     </span>
                   </h1>
                   <p
-                    className="text-slate-700 dark:text-white font-thin text-[22px] leading-[1.4] my-[10px]"
+                    className="text-slate-700 dark:text-white font-thin text-[18px] leading-[1.4] my-[10px]"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     Your comprehensive learning snapshot is ready. We've analyzed your <br /> progress and prepared <strong>AI-powered insights</strong> for your goals today.
                   </p>
                 </div>
               </div>
-              <div className="w-full md:w-[25%]">
-                <div className="left_content_box md:mr-[60px]">
-                  <div
-                    className="box flex items-center gap-5 p-5 rounded-[3px] border border-slate-200 dark:border-[#FFFFFF45] bg-white/50 dark:bg-[linear-gradient(90deg,rgba(255,255,255,0.378)_0%,rgba(255,255,255,0.1008)_100%)]"
-                  >
-                    <div
-                      className="left_item"
-                      style={{
-                        width: "55px",
-                        height: "55px",
-                        borderRadius: "3px",
-                        backgroundColor: "#DF7416"
-                      }}
-                    />
-                    <div className="right-item">
-                      <h3
-                        className="text-slate-800 dark:text-white m-0 font-semibold text-[22px] leading-[1.2]"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
-                      >
-                        {fullName}
-                      </h3>
-                      <em
-                        className="text-slate-600 dark:text-white m-0 font-thin text-[18px] leading-[1.2] not-italic"
-                        style={{ fontFamily: "'Inter', sans-serif" }}
-                      >
-                        {classNameStr}
-                      </em>
+              <div className="hidden md:flex w-full md:w-[50%] gap-6">
+                {/* Academic Summary Card */}
+                <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm flex flex-col justify-between w-[240px]">
+                  <div>
+                    <h3 className="text-[11px] font-bold tracking-wider mb-6 text-slate-800 dark:text-white">ACADEMIC SUMMARY</h3>
+                    <div className="text-center mb-6">
+                      <span className="text-[42px] font-bold block mb-1 leading-none text-slate-900 dark:text-white">3.82</span>
+                      <span className="text-[11px] text-slate-600 dark:text-slate-400">High Level e.g.or GPA</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+                      <div className="h-full bg-[#E87E04] w-[75%]"></div>
+                      <div className="h-full bg-slate-200 dark:bg-slate-700 w-[25%]"></div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Recent Activity Card */}
+                <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm flex-1 relative flex flex-col">
+                  <div className="absolute right-2 top-12 bottom-6 w-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden hidden"><div className="h-1/3 bg-slate-300 dark:bg-slate-600 rounded-full"></div></div>
+                  <h3 className="text-[11px] font-bold tracking-wider mb-5 text-slate-800 dark:text-white shrink-0">RECENT ACTIVITY</h3>
+                  <div className="space-y-4 overflow-y-auto pr-4 h-[110px] custom-scrollbar flex-1 relative">
+                    <div className="flex gap-3 relative z-10">
+                      <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-500/20 flex items-center justify-center shrink-0 z-10 border-2 border-white dark:border-[#0D0D0F]">
+                        <span className="text-orange-500 text-[12px]">📅</span>
+                      </div>
+                      <div className="pr-2">
+                        <p className="text-[11px] font-medium leading-[1.3] text-slate-800 dark:text-slate-200">John Doe: Cellular Respiration Exam - May 15</p>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">2 days ago</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 relative z-10">
+                      <div className="absolute left-[15px] -top-[30px] w-[2px] h-[40px] bg-slate-100 dark:bg-slate-800 -z-10"></div>
+                      <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-500/20 flex items-center justify-center shrink-0 z-10 border-2 border-white dark:border-[#0D0D0F]">
+                        <span className="text-green-500 text-[12px]">📄</span>
+                      </div>
+                      <div className="pr-2">
+                        <p className="text-[11px] font-medium leading-[1.3] text-slate-800 dark:text-slate-200">John Doe in Cellular Respiration Exam</p>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">2 hours ago</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3 relative z-10">
+                      <div className="absolute left-[15px] -top-[30px] w-[2px] h-[40px] bg-slate-100 dark:bg-slate-800 -z-10"></div>
+                      <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 z-10 border-2 border-white dark:border-[#0D0D0F]">
+                        <span className="text-slate-500 dark:text-slate-300 text-[12px] font-bold">J</span>
+                      </div>
+                      <div className="pr-2">
+                        <p className="text-[11px] font-medium leading-[1.3] text-slate-800 dark:text-slate-200">John Doe students@pathfinder.edu</p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -306,26 +329,26 @@ export default function Overview({ user, onLogout }) {
                   </div>
                 </div>
                 {/* Background Line Graph Texture */}
-                <img 
-                  src="/images/student_portal_home_page/card_item1.png" 
-                  alt="card texture" 
+                <img
+                  src="/images/student_portal_home_page/card_item1.png"
+                  alt="card texture"
                   className="absolute left-0 top-[-10%] w-[120%] -translate-x-[10%] opacity-50 z-0 pointer-events-none"
                 />
-                
+
                 <div className="icon_list flex justify-end items-end h-full relative z-10 pb-4 pr-4">
-                  <img 
-                    className="aten_last_img" 
-                    src="/images/student_portal_home_page/92_percent.png" 
-                    alt="percentage" 
-                    style={{ width: "90px", opacity: 0.9 }} 
+                  <img
+                    className="aten_last_img"
+                    src="/images/student_portal_home_page/92_percent.png"
+                    alt="percentage"
+                    style={{ width: "90px", opacity: 0.9 }}
                   />
                 </div>
               </div>
             </div>
 
             {/* Physics Card */}
-            <div 
-              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105" 
+            <div
+              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105"
               style={{
                 width: "380px",
                 height: "520px",
@@ -353,8 +376,8 @@ export default function Overview({ user, onLogout }) {
             </div>
 
             {/* Chemistry Card (Center Focus) */}
-            <div 
-              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105" 
+            <div
+              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105"
               style={{
                 width: "380px",
                 height: "520px",
@@ -384,8 +407,8 @@ export default function Overview({ user, onLogout }) {
             </div>
 
             {/* Biology Card */}
-            <div 
-              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105" 
+            <div
+              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105"
               style={{
                 width: "380px",
                 height: "520px",
@@ -413,8 +436,8 @@ export default function Overview({ user, onLogout }) {
             </div>
 
             {/* Streak Card */}
-            <div 
-              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105" 
+            <div
+              className="subject_card shadow-2xl transition-transform duration-300 hover:scale-105"
               style={{
                 width: "380px",
                 height: "520px",
@@ -457,7 +480,63 @@ export default function Overview({ user, onLogout }) {
         />
 
         <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto", padding: "0 35px" }}>
-          <div className="flex flex-wrap lg:flex-nowrap justify-between gap-12">
+            {/* MOBILE ONLY: Summary & History Cards placed after the rotated cards */}
+            <div className="flex md:hidden flex-col gap-6 mb-12 relative z-10 w-full pt-4">
+              {/* Academic Summary Card */}
+              <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm flex flex-col justify-between w-full">
+                <div>
+                  <h3 className="text-[11px] font-bold tracking-wider mb-6 text-slate-800 dark:text-white">ACADEMIC SUMMARY</h3>
+                  <div className="text-center mb-6">
+                    <span className="text-[42px] font-bold block mb-1 leading-none text-slate-900 dark:text-white">3.82</span>
+                    <span className="text-[11px] text-slate-600 dark:text-slate-400">High Level e.g.or GPA</span>
+                  </div>
+                </div>
+                <div>
+                  <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
+                    <div className="h-full bg-[#E87E04] w-[75%]"></div>
+                    <div className="h-full bg-slate-200 dark:bg-slate-700 w-[25%]"></div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recent Activity Card */}
+              <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl p-6 shadow-sm w-full relative flex flex-col">
+                <div className="absolute right-2 top-12 bottom-6 w-1 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden hidden"><div className="h-1/3 bg-slate-300 dark:bg-slate-600 rounded-full"></div></div>
+                <h3 className="text-[11px] font-bold tracking-wider mb-5 text-slate-800 dark:text-white shrink-0">RECENT ACTIVITY</h3>
+                <div className="space-y-4 overflow-y-auto pr-4 h-[110px] custom-scrollbar flex-1 relative">
+                  <div className="flex gap-3 relative z-10">
+                    <div className="w-8 h-8 rounded-full bg-orange-100 dark:bg-orange-500/20 flex items-center justify-center shrink-0 z-10 border-2 border-white dark:border-[#0D0D0F]">
+                      <span className="text-orange-500 text-[12px]">📅</span>
+                    </div>
+                    <div className="pr-2">
+                      <p className="text-[11px] font-medium leading-[1.3] text-slate-800 dark:text-slate-200">John Doe: Cellular Respiration Exam - May 15</p>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">2 days ago</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3 relative z-10">
+                    <div className="absolute left-[15px] -top-[30px] w-[2px] h-[40px] bg-slate-100 dark:bg-slate-800 -z-10"></div>
+                    <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-500/20 flex items-center justify-center shrink-0 z-10 border-2 border-white dark:border-[#0D0D0F]">
+                      <span className="text-green-500 text-[12px]">📄</span>
+                    </div>
+                    <div className="pr-2">
+                      <p className="text-[11px] font-medium leading-[1.3] text-slate-800 dark:text-slate-200">John Doe in Cellular Respiration Exam</p>
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">2 hours ago</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3 relative z-10">
+                    <div className="absolute left-[15px] -top-[30px] w-[2px] h-[40px] bg-slate-100 dark:bg-slate-800 -z-10"></div>
+                    <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center shrink-0 z-10 border-2 border-white dark:border-[#0D0D0F]">
+                      <span className="text-slate-500 dark:text-slate-300 text-[12px] font-bold">J</span>
+                    </div>
+                    <div className="pr-2">
+                      <p className="text-[11px] font-medium leading-[1.3] text-slate-800 dark:text-slate-200">John Doe students@pathfinder.edu</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap lg:flex-nowrap justify-between gap-12">
 
             {/* LEFT PLAN PANEL */}
             <div className="w-full lg:w-[58%]">
