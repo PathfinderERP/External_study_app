@@ -385,9 +385,9 @@ function DashboardSkeleton({ role }) {
   } else if (role === "SCHOOL_ADMIN" || role === "SUPER_ADMIN") {
     sidebarBg = "bg-slate-900 border-r border-slate-800"; // Admin Portal dark gray
   } else if (role === "STUDENT") {
-    sidebarBg = "bg-[#0c061a] border-r border-white/5";
-    mainBg = "bg-black";
-    skeletonCardBg = "bg-white/5";
+    sidebarBg = "bg-slate-50 dark:bg-[#0c061a] border-r border-slate-200 dark:border-white/5";
+    mainBg = "bg-slate-50 dark:bg-black";
+    skeletonCardBg = "bg-slate-200/70 dark:bg-white/5";
   }
 
   return (
