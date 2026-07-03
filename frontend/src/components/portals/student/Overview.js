@@ -294,7 +294,7 @@ export default function Overview({ user, onLogout }) {
         </div>
 
         {/* OVERLAPPING ROTATED CARDS WRAPPER */}
-        <div className="cards_scroll_wrapper">
+        <div className="cards_scroll_wrapper px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20">
           <div
             className="card_main_subject_list flex flex-wrap lg:flex-nowrap items-center justify-center gap-6 lg:gap-0 relative z-[55] mb-[-240px] pt-2"
             style={{ height: "auto" }}
