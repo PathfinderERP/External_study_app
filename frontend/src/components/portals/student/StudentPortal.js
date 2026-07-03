@@ -29,7 +29,7 @@ export default function StudentPortal({ user, onLogout }) {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   return (
-    <div className="flex h-screen overflow-hidden font-sans transition-colors duration-300 bg-slate-50 dark:bg-black text-slate-900 dark:text-white">
+    <div className="flex h-[100dvh] overflow-hidden font-sans transition-colors duration-300 bg-slate-50 text-slate-900 dark:bg-[#070514] dark:text-white relative w-full">
       {/* Sidebar Component for Desktop */}
       <Sidebar
         activeTab={activeTab}
@@ -41,7 +41,7 @@ export default function StudentPortal({ user, onLogout }) {
       {/* Mobile Drawer Sidebar */}
       {sidebarOpen && (
         <div className="fixed inset-0 z-[999] flex md:hidden bg-black/60 backdrop-blur-sm transition-opacity duration-300">
-          <div className="w-64 bg-[#0c061a] h-full flex flex-col relative shadow-2xl">
+          <div className="w-64 bg-white dark:bg-[#0c061a] h-full flex flex-col relative shadow-2xl">
             {/* Render Sidebar inside mobile container */}
             <Sidebar
               activeTab={activeTab}
@@ -61,8 +61,8 @@ export default function StudentPortal({ user, onLogout }) {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <header className="sticky top-0 z-30 h-20 md:h-20 py-2 md:py-0 flex items-center justify-between px-3 md:px-8 transition-colors duration-300 bg-white/80 dark:bg-[#0c061a]/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-white/10 text-slate-800 dark:text-white shadow-sm">
-          <div className="flex items-center gap-1.5 md:gap-3">
+        <header className="sticky top-0 z-30 h-20 md:h-24 py-2 md:py-0 flex items-center justify-between px-3 md:px-8 transition-colors duration-300 bg-white/90 dark:bg-transparent backdrop-blur-md border-b border-slate-200 dark:border-transparent text-slate-900 dark:text-white w-full">
+          <div className="flex items-center gap-4 md:gap-6">
             {/* Hamburger Button for mobile */}
             <button
               onClick={() => setSidebarOpen(true)}
@@ -70,57 +70,51 @@ export default function StudentPortal({ user, onLogout }) {
               className="
                 md:hidden relative flex flex-col items-center justify-center gap-[5px]
                 w-10 h-10 rounded-xl
-                bg-white/60 dark:bg-white/5
-                border border-slate-200/80 dark:border-white/10
-                shadow-sm
+                bg-transparent
+                border border-slate-200 dark:border-white/10
                 transition-all duration-300
-                hover:scale-105 hover:shadow-md
-                hover:border-blue-400/60 dark:hover:border-[#00E3FD]/40
-                hover:bg-blue-50/80 dark:hover:bg-[#00E3FD]/10
+                hover:bg-slate-100 dark:hover:bg-white/5
                 active:scale-95
-                group
               "
             >
               {/* Three animated bars */}
-              <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-600 dark:bg-white transition-all duration-300 group-hover:bg-blue-500 dark:group-hover:bg-[#00E3FD] group-hover:w-[14px]" />
-              <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-600 dark:bg-white transition-all duration-300 group-hover:bg-blue-500 dark:group-hover:bg-[#00E3FD]" />
-              <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-600 dark:bg-white transition-all duration-300 group-hover:bg-blue-500 dark:group-hover:bg-[#00E3FD] group-hover:w-[10px]" />
-              {/* Glow ring */}
-              <span className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 ring-2 ring-blue-400/40 dark:ring-[#00E3FD]/30 pointer-events-none" />
+              <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-700 dark:bg-white transition-all duration-300" />
+              <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-700 dark:bg-white transition-all duration-300" />
+              <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-700 dark:bg-white transition-all duration-300" />
             </button>
-            {/* <span className="text-[12px] md:text-sm font-bold uppercase tracking-[0.1em] px-4 py-1.5 rounded-full whitespace-nowrap text-blue-600 bg-blue-50/80 dark:text-[#00E3FD] dark:bg-[#00E3FD]/10 border border-blue-100 dark:border-[#00E3FD]/20 shadow-inner">Student Portal</span> */}
+            
+            {/* Title (Hidden on very small screens) */}
+            <h2 className="hidden sm:block text-[#D97706] dark:text-[#FFC300] bg-[#FFC300]/10 dark:bg-transparent px-2 py-1 rounded font-medium tracking-[0.2em] italic text-xs md:text-sm shadow-sm drop-shadow-none dark:drop-shadow-[0_0_8px_rgba(255,195,0,0.4)]">
+              STUDENT INTELLIGENCE HUB
+            </h2>
           </div>
-          <div className="flex items-center gap-3 md:gap-5">
+          
+          <div className="flex items-center gap-4 md:gap-6">
             <ThemeToggle />
-            <button className="relative p-2 rounded-xl transition-all duration-300 text-slate-400 hover:text-slate-700 hover:bg-slate-100 dark:text-white/60 dark:hover:text-white dark:hover:bg-white/10 active:scale-95">
-              <Bell className="h-7 w-7 md:h-[22px] md:w-[22px]" />
-              <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-white dark:ring-[#0c061a]"></span>
+            <button className="relative p-2 rounded-xl transition-all duration-300 text-slate-500 hover:text-[#FFC300] hover:bg-slate-100 dark:text-white dark:hover:text-[#FFC300] dark:hover:bg-white/5 active:scale-95">
+              <Bell className="h-6 w-6 md:h-[22px] md:w-[22px]" strokeWidth={1.5} />
+              <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
             </button>
             <div className="h-6 md:h-8 w-[1px] bg-slate-200 dark:bg-white/10"></div>
+            
             <div className="relative">
               <div
                 onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                className="flex items-center gap-2 md:gap-3 hover:bg-slate-50 dark:hover:bg-white/5 p-1.5 pr-3 md:pr-4 rounded-full transition-all duration-300 cursor-pointer border border-transparent hover:border-slate-200 dark:hover:border-white/10"
+                className="flex items-center gap-3 md:gap-4 p-1.5 pr-3 md:pr-4 rounded-full transition-all duration-300 cursor-pointer hover:bg-slate-100 dark:hover:bg-white/5"
               >
-                <div className="h-10 w-10 md:h-11 md:w-11 rounded-full overflow-hidden flex items-center justify-center bg-slate-100 border-2 border-white dark:bg-white/10 dark:border-slate-800 shadow-sm">
+                <div className="h-10 w-10 md:h-12 md:w-12 rounded-full overflow-hidden flex items-center justify-center bg-gradient-to-tr from-[#1c0f3b] to-[#0a0515] border border-[#3d1c7a] shadow-[0_0_15px_rgba(112,48,225,0.2)]">
                   <img src={`https://api.dicebear.com/7.x/micah/svg?seed=${user?.full_name || 'Student'}`} alt="Profile Avatar" className="w-full h-full object-cover scale-110" />
                 </div>
                 <div className="hidden text-left md:block">
-                  <p className="text-sm font-bold text-slate-800 dark:text-white leading-tight">{user?.full_name || "Demo Student"}</p>
-                  <p className="text-[11px] font-medium text-slate-500 dark:text-white/50">{user?.email}</p>
+                  <p className="text-sm font-bold text-slate-800 dark:text-white leading-tight">{user?.full_name ? user.full_name.split(' ')[0] : "John"}!</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">Keep learning!</p>
                 </div>
-                <button
-                  onClick={(e) => { e.stopPropagation(); onLogout(); }}
-                  className="hidden md:block ml-2 p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-full transition-all duration-300 active:scale-95"
-                  title="Logout"
-                >
-                  <LogOut className="h-[18px] w-[18px]" />
-                </button>
+                <svg className="hidden md:block w-4 h-4 text-slate-400 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
               </div>
 
-              {/* Mobile Profile Dropdown */}
+              {/* Profile Dropdown */}
               {isProfileDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#1a0e31] rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 overflow-hidden z-50 md:hidden animate-fade-in">
+                <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-[#1a0e31] rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 overflow-hidden z-50 animate-fade-in">
                   <div className="p-4 border-b border-slate-100 dark:border-white/5">
                     <p className="text-sm font-bold text-slate-800 dark:text-white truncate">{user?.full_name || "Demo Student"}</p>
                     <p className="text-xs text-slate-500 dark:text-white/50 truncate">{user?.email}</p>
