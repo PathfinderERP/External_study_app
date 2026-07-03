@@ -29,7 +29,7 @@ export default function Sidebar({ activeTab, setActiveTab, isMobile, isMinimized
   ];
 
   return (
-    <aside className={`${isMobile ? "w-full h-full" : `hidden md:flex flex-col ${isMinimized ? "w-24" : "w-72"} relative`} bg-slate-50 dark:bg-[#0c061a] text-slate-900 dark:text-white border-r border-slate-200 dark:border-white/5 transition-all duration-300`}>
+    <aside className={`${isMobile ? "flex flex-col w-full h-full" : `hidden md:flex flex-col ${isMinimized ? "w-24" : "w-72"} relative`} bg-slate-50 dark:bg-[#0c061a] text-slate-900 dark:text-white border-r border-slate-200 dark:border-white/5 transition-all duration-300`}>
       {/* Brand logo section */}
       <div className={`flex h-20 items-center gap-2 border-b border-slate-200 dark:border-white/5 ${isMinimized ? "justify-center px-0" : "justify-start px-6"}`}>
         <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-[#FF6C03] to-[#FFC300] flex flex-shrink-0 items-center justify-center font-black text-black">
