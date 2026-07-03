@@ -463,16 +463,16 @@ export default function Login() {
           .desktop-radial-bg { background-image: radial-gradient(circle at 10% 80%, rgba(130, 0, 255, 0.25) 0%, transparent 60%), radial-gradient(circle at 90% 20%, rgba(255, 100, 0, 0.2) 0%, transparent 60%); }
         }
       `}} />
-      <div className="flex min-h-screen w-full justify-center px-4 py-8 font-sans sm:items-center sm:px-8 responsive-bg bg-cover bg-center bg-no-repeat z-0">
+      <div className="flex min-h-screen w-full justify-center px-4 py-4 md:py-8 font-sans sm:items-center sm:px-8 responsive-bg bg-cover bg-center bg-no-repeat z-0">
         {/* Main Login Card Container */}
-        <div className="my-auto flex w-full max-w-[1000px] flex-col overflow-hidden rounded-3xl md:rounded-[2rem] bg-transparent md:bg-white shadow-none md:shadow-2xl z-10 border border-white/5 md:border-none">
+        <div className="my-auto flex w-full max-w-[1000px] flex-col overflow-hidden rounded-3xl md:rounded-[2rem] bg-transparent md:bg-white shadow-none md:shadow-2xl z-10 border-none">
 
           {/* Top Section with Split Columns */}
           <div className="flex flex-col md:flex-row">
 
             {/* Left Column (Brand, Tagline & Building Image) */}
             <div
-              className="relative flex flex-col justify-between px-4 py-8 text-white md:w-[45%] md:p-8 lg:p-10 overflow-hidden bg-transparent md:bg-[#0a041f] desktop-radial-bg"
+              className="relative flex flex-col justify-between px-4 pt-5 pb-4 text-white md:w-[45%] md:p-8 lg:p-10 overflow-hidden bg-transparent md:bg-[#0a041f] desktop-radial-bg"
             >
 
               {/* Background Grid Accent overlay (Desktop only) */}
@@ -546,7 +546,7 @@ export default function Login() {
 
                 {/* Welcome Back Text */}
                 <h2 className="mt-4 text-3xl font-black text-white tracking-tight leading-tight">
-                  WELCOME BACK!
+                  WELCOME BACK,<br /><span className="text-[#f1b827]">JOHN!</span>
                 </h2>
 
                 {/* Underline separator */}
@@ -612,8 +612,8 @@ export default function Login() {
                   {/* Form */}
                   <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Username Input */}
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold uppercase tracking-wider text-zinc-300 md:text-zinc-700">
+                    <div className="space-y-2 p-4 md:p-0 rounded-2xl md:rounded-none bg-[#100b21]/90 md:bg-transparent border border-white/5 md:border-transparent">
+                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-300 md:text-zinc-700">
                         Email Address
                       </label>
                       <div className="relative flex items-center">
@@ -625,15 +625,15 @@ export default function Login() {
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="student@pathfinder.edu"
-                          className="w-full rounded-xl border border-white/10 md:border-zinc-200 bg-[#130d2d] md:bg-white py-3 pl-12 pr-4 text-sm text-white md:text-zinc-800 outline-none transition-all placeholder:text-zinc-600 md:placeholder:text-zinc-400 focus:border-[#5e2ae6] md:focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#5e2ae6] md:focus:ring-[#1e4cd8]"
+                          className="w-full rounded-xl border border-white/10 md:border-zinc-200 bg-[#181236]/80 md:bg-white py-3 pl-12 pr-4 text-sm text-white md:text-zinc-800 outline-none transition-all placeholder:text-zinc-500 md:placeholder:text-zinc-400 focus:border-[#5e2ae6] md:focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#5e2ae6] md:focus:ring-[#1e4cd8]"
                           required
                         />
                       </div>
                     </div>
 
                     {/* Password Input */}
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold uppercase tracking-wider text-zinc-300 md:text-zinc-700">
+                    <div className="space-y-2 p-4 md:p-0 rounded-2xl md:rounded-none bg-[#100b21]/90 md:bg-transparent border border-white/5 md:border-transparent">
+                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-300 md:text-zinc-700">
                         Password
                       </label>
                       <div className="relative flex items-center">
@@ -645,7 +645,7 @@ export default function Login() {
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           placeholder="••••••••••••••••"
-                          className="w-full rounded-xl border border-white/10 md:border-zinc-200 bg-[#130d2d] md:bg-white py-3 pl-12 pr-12 text-sm text-white md:text-zinc-800 outline-none transition-all placeholder:text-zinc-600 md:placeholder:text-zinc-400 focus:border-[#5e2ae6] md:focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#5e2ae6] md:focus:ring-[#1e4cd8]"
+                          className="w-full rounded-xl border border-white/10 md:border-zinc-200 bg-[#181236]/80 md:bg-white py-3 pl-12 pr-12 text-sm text-white md:text-zinc-800 outline-none transition-all placeholder:text-zinc-500 md:placeholder:text-zinc-400 focus:border-[#5e2ae6] md:focus:border-[#1e4cd8] focus:ring-1 focus:ring-[#5e2ae6] md:focus:ring-[#1e4cd8]"
                           required
                         />
                         <button
@@ -1023,7 +1023,7 @@ export default function Login() {
           </div>
 
           {/* Footer Navigation Bar */}
-          <div className="grid grid-cols-2 bg-[#090417] py-4 md:grid-cols-4 w-full rounded-b-[2rem]">
+          <div className="grid grid-cols-2 bg-[#090417] py-4 md:grid-cols-4 w-full rounded-3xl md:rounded-t-none md:rounded-b-[2rem]">
 
             <div className="flex flex-col items-center justify-center gap-1 border-r border-white/5 border-b md:border-b-0 py-3 md:py-2 px-2 md:px-4 text-center">
               <div className="flex items-center gap-2">
