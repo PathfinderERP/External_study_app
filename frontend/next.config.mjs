@@ -4,10 +4,7 @@ const nextConfig = {
   experimental: {
     memoryBasedWorkersCount: true,
   },
-  // Skip linting/typechecking on Vercel (do this locally instead)
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // Skip typechecking on Vercel (do this locally instead)
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -40,6 +37,8 @@ const nextConfig = {
     }
     return config
   },
+  // Silence Turbopack error since we have a custom webpack config for local polling
+  turbopack: {},
 };
 
 export default nextConfig;
