@@ -463,16 +463,16 @@ export default function Login() {
           .desktop-radial-bg { background-image: radial-gradient(circle at 10% 80%, rgba(130, 0, 255, 0.25) 0%, transparent 60%), radial-gradient(circle at 90% 20%, rgba(255, 100, 0, 0.2) 0%, transparent 60%); }
         }
       `}} />
-      <div className="flex min-h-screen w-full justify-center px-4 py-4 md:py-4 font-sans sm:items-center sm:px-8 responsive-bg bg-cover bg-center bg-no-repeat z-0">
+      <div className="flex min-h-screen w-full justify-center px-4 py-1 md:py-4 font-sans sm:items-center sm:px-8 responsive-bg bg-cover bg-center bg-no-repeat z-0">
         {/* Main Login Card Container */}
-        <div className="mt-2 mb-auto md:my-auto flex w-full max-w-[1000px] flex-col overflow-hidden rounded-3xl md:rounded-[2rem] bg-transparent md:bg-white shadow-none md:shadow-2xl z-10 border-none">
+        <div className="mt-0 mb-auto md:my-auto flex w-full max-w-[1000px] flex-col overflow-hidden rounded-3xl md:rounded-[2rem] bg-transparent md:bg-white shadow-none md:shadow-2xl z-10 border-none">
 
           {/* Top Section with Split Columns */}
           <div className="flex flex-col md:flex-row">
 
             {/* Left Column (Brand, Tagline & Building Image) */}
             <div
-              className="relative flex flex-col justify-between px-4 pt-5 pb-4 text-white md:w-[45%] md:p-6 lg:p-8 overflow-hidden bg-transparent md:bg-[#0a041f] desktop-radial-bg"
+              className="relative flex flex-col justify-between px-4 pt-1 pb-4 text-white md:w-[45%] md:p-6 lg:p-8 overflow-hidden bg-transparent md:bg-[#0a041f] desktop-radial-bg"
             >
 
               {/* Background Image Accent overlay (Desktop only) */}
