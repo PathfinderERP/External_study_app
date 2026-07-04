@@ -21,6 +21,7 @@ import ResultPage from "./pages/ResultPage";
 import StudyAdda from "./pages/StudyAdda";
 import StudyMaterial from "./pages/StudyMaterial";
 import SwotAnalysis from "./pages/SwotAnalysis";
+// yrewi
 
 export default function StudentPortal({ user, onLogout }) {
   const [activeTab, setActiveTab] = useState("overview");
@@ -82,13 +83,13 @@ export default function StudentPortal({ user, onLogout }) {
               <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-700 dark:bg-white transition-all duration-300" />
               <span className="block w-[18px] h-[2.5px] rounded-full bg-slate-700 dark:bg-white transition-all duration-300" />
             </button>
-            
+
             {/* Title (Hidden on very small screens) */}
             <h2 className="hidden sm:block text-[#D97706] dark:text-[#FFC300] bg-[#FFC300]/10 dark:bg-transparent px-2 py-1 rounded font-medium tracking-[0.2em] italic text-xs md:text-sm shadow-sm drop-shadow-none dark:drop-shadow-[0_0_8px_rgba(255,195,0,0.4)]">
               STUDENT INTELLIGENCE HUB
             </h2>
           </div>
-          
+
           <div className="flex items-center gap-4 md:gap-6">
             <ThemeToggle />
             <button className="relative p-2 rounded-xl transition-all duration-300 text-slate-500 hover:text-[#FFC300] hover:bg-slate-100 dark:text-white dark:hover:text-[#FFC300] dark:hover:bg-white/5 active:scale-95">
@@ -96,7 +97,7 @@ export default function StudentPortal({ user, onLogout }) {
               <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span>
             </button>
             <div className="h-6 md:h-8 w-[1px] bg-slate-200 dark:bg-white/10"></div>
-            
+
             <div className="relative">
               <div
                 onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
