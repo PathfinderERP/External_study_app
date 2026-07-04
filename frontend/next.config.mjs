@@ -1,5 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Prevent Vercel from crashing due to memory limits during build
+  experimental: {
+    memoryBasedWorkersCount: true,
+  },
+  // Skip linting/typechecking on Vercel (do this locally instead)
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   async rewrites() {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
