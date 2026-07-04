@@ -568,7 +568,7 @@ export default function Login() {
             </div>
 
             {/* Right Column (Login Form) */}
-            <div className="relative flex flex-col justify-center px-4 pt-2 pb-6 md:py-6 md:w-[55%] lg:p-10 bg-transparent md:bg-white rounded-b-3xl md:rounded-none">
+            <div className="relative flex flex-col justify-center px-5 pt-2 pb-8 md:py-6 md:w-[55%] lg:p-10 bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl md:border-none md:shadow-none md:backdrop-blur-none md:bg-white mx-3 md:mx-0 mb-6 md:mb-0 mt-1 md:mt-0 rounded-3xl md:rounded-none">
 
               {/* Top Right 3D Books Illustration */}
               <div className="absolute right-4 top-4 hidden h-20 w-20 sm:block md:h-24 md:w-24 lg:right-8 lg:top-6">
