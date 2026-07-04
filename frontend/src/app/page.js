@@ -463,26 +463,29 @@ export default function Login() {
           .desktop-radial-bg { background-image: radial-gradient(circle at 10% 80%, rgba(130, 0, 255, 0.25) 0%, transparent 60%), radial-gradient(circle at 90% 20%, rgba(255, 100, 0, 0.2) 0%, transparent 60%); }
         }
       `}} />
-      <div className="flex min-h-screen w-full justify-center px-4 py-4 md:py-8 font-sans sm:items-center sm:px-8 responsive-bg bg-cover bg-center bg-no-repeat z-0">
+      <div className="flex min-h-screen w-full justify-center px-4 py-4 md:py-4 font-sans sm:items-center sm:px-8 responsive-bg bg-cover bg-center bg-no-repeat z-0">
         {/* Main Login Card Container */}
-        <div className="my-auto flex w-full max-w-[1000px] flex-col overflow-hidden rounded-3xl md:rounded-[2rem] bg-transparent md:bg-white shadow-none md:shadow-2xl z-10 border-none">
+        <div className="mt-2 mb-auto md:my-auto flex w-full max-w-[1000px] flex-col overflow-hidden rounded-3xl md:rounded-[2rem] bg-transparent md:bg-white shadow-none md:shadow-2xl z-10 border-none">
 
           {/* Top Section with Split Columns */}
           <div className="flex flex-col md:flex-row">
 
             {/* Left Column (Brand, Tagline & Building Image) */}
             <div
-              className="relative flex flex-col justify-between px-4 pt-5 pb-4 text-white md:w-[45%] md:p-8 lg:p-10 overflow-hidden bg-transparent md:bg-[#0a041f] desktop-radial-bg"
+              className="relative flex flex-col justify-between px-4 pt-5 pb-4 text-white md:w-[45%] md:p-6 lg:p-8 overflow-hidden bg-transparent md:bg-[#0a041f] desktop-radial-bg"
             >
 
-              {/* Background Grid Accent overlay (Desktop only) */}
-              <div className="absolute inset-0 opacity-10 hidden md:block bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none z-0"></div>
+              {/* Background Image Accent overlay (Desktop only) */}
+              <div
+                className="absolute inset-0 hidden md:block pointer-events-none z-0 bg-cover bg-center opacity-50"
+                style={{ backgroundImage: "url('/images/login page/login bg sm.png')" }}
+              ></div>
 
               {/* Header / Brand section (Desktop) */}
               <div className="relative z-10 hidden md:flex flex-col items-center text-center">
 
                 {/* Pathfinder Logo (SVG styled based on image) */}
-                <div className="mb-4 flex h-24 w-24 items-center justify-center">
+                <div className="mb-3 flex h-20 w-20 lg:h-24 lg:w-24 items-center justify-center">
                   <svg viewBox="0 0 100 100" className="h-full w-full drop-shadow-md" fill="none" xmlns="http://www.w3.org/2000/svg">
                     {/* Outer Shield/Cap outline */}
                     <path d="M50 8 L88 25 L88 55 C88 75 50 92 50 92 C50 92 12 75 12 55 L12 25 L50 8 Z" fill="#0b3394" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
@@ -498,8 +501,7 @@ export default function Login() {
 
                 {/* BRAND TEXT */}
                 <h2
-                  className="text-3xl font-black tracking-[0.15em] text-white lg:text-[34px]"
-                  style={{ textShadow: "-2px 0px 0px rgba(255, 0, 50, 0.7), 2px 0px 0px rgba(0, 255, 255, 0.7)" }}
+                  className="text-3xl font-black tracking-[0.15em] text-white lg:text-[34px] drop-shadow-md"
                 >
                   PATHFINDER
                 </h2>
@@ -525,7 +527,7 @@ export default function Login() {
               {/* Header / Brand section (Mobile) */}
               <div className="relative z-10 flex md:hidden flex-col items-center text-center mt-2">
                 {/* Pathfinder Logo */}
-                <div className="mb-4 flex h-20 w-20 items-center justify-center">
+                <div className="mb-2 flex h-14 w-14 items-center justify-center">
                   <svg viewBox="0 0 100 100" className="h-full w-full drop-shadow-md" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M50 8 L88 25 L88 55 C88 75 50 92 50 92 C50 92 12 75 12 55 L12 25 L50 8 Z" fill="#0b3394" stroke="white" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M50 20 L80 32 L50 44 L20 32 Z" fill="white" />
@@ -535,33 +537,28 @@ export default function Login() {
                   </svg>
                 </div>
 
-                {/* STUDENT INTELLIGENCE HUB Banner */}
-                <div className="mt-3 flex w-full items-center justify-center gap-3">
-                  <div className="h-[1px] w-8 bg-[#f1b827]/40"></div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-[#f1b827]">
-                    Student Intelligence Hub
-                  </span>
-                  <div className="h-[1px] w-8 bg-[#f1b827]/40"></div>
-                </div>
+
 
                 {/* Welcome Back Text */}
-                <h2 className="mt-4 text-3xl font-black text-white tracking-tight leading-tight">
-                  WELCOME BACK,<br /><span className="text-[#f1b827]">JOHN!</span>
+                <h2 className="mt-2 text-2xl font-black text-white tracking-tight leading-tight">
+                  WELCOME BACK
                 </h2>
 
                 {/* Underline separator */}
-                <div className="mt-4 h-[2px] w-12 rounded-full bg-gradient-to-r from-purple-500 to-orange-500"></div>
+                <div className="mt-2 h-[2px] w-12 rounded-full bg-gradient-to-r from-purple-500 to-orange-500"></div>
 
                 {/* Mobile Tagline */}
-                <p className="mt-6 text-xs text-zinc-300 font-light max-w-[280px]">
-                  Your comprehensive learning snapshot is ready. We've analyzed your progress and prepared <span className="font-semibold text-purple-400">AI-powered insights</span> for your goals today.
+                <p className="mt-2 text-xs text-zinc-400 font-light max-w-[260px]">
+                  Sign in to access your <span className="font-semibold text-purple-400">AI-powered</span> learning dashboard.
                 </p>
+
+
               </div>
 
               {/* Bottom Image Component (Desktop only) */}
-              <div className="relative mt-8 hidden md:block h-48 w-full overflow-hidden rounded-2xl border border-white/10 shadow-lg md:h-64">
+              <div className="relative mt-4 hidden md:block h-48 w-full overflow-hidden rounded-2xl border border-white/10 shadow-lg md:h-48">
                 <Image
-                  src="/images/school_building.png"
+                  src="/images/login page/school_building.png"
                   alt="Pathfinder campus and students"
                   fill
                   priority
@@ -571,12 +568,12 @@ export default function Login() {
             </div>
 
             {/* Right Column (Login Form) */}
-            <div className="relative flex flex-col justify-center px-4 py-8 md:p-8 md:w-[55%] lg:p-12 bg-transparent md:bg-white rounded-b-3xl md:rounded-none">
+            <div className="relative flex flex-col justify-center px-4 pt-2 pb-6 md:py-6 md:w-[55%] lg:p-10 bg-transparent md:bg-white rounded-b-3xl md:rounded-none">
 
               {/* Top Right 3D Books Illustration */}
               <div className="absolute right-4 top-4 hidden h-20 w-20 sm:block md:h-24 md:w-24 lg:right-8 lg:top-6">
                 <Image
-                  src="/images/books_cap.png"
+                  src="/images/login page/books_cap.png"
                   alt="Graduation Books"
                   width={96}
                   height={96}
@@ -600,7 +597,7 @@ export default function Login() {
               {view === "login" ? (
                 <>
                   {/* Welcome Text (Desktop Only) */}
-                  <div className="mb-6 hidden md:block">
+                  <div className="mb-4 hidden md:block">
                     <h1 className="text-3xl font-extrabold text-[#0c2356] tracking-tight">
                       Welcome Back!
                     </h1>
@@ -610,10 +607,10 @@ export default function Login() {
                   </div>
 
                   {/* Form */}
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} className="space-y-3">
                     {/* Username Input */}
-                    <div className="space-y-2 p-4 md:p-0 rounded-2xl md:rounded-none bg-[#100b21]/90 md:bg-transparent border border-white/5 md:border-transparent">
-                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-300 md:text-zinc-700">
+                    <div className="space-y-1 p-3 md:p-0 rounded-xl md:rounded-none bg-[#100b21]/90 md:bg-transparent border border-white/5 md:border-transparent">
+                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-400 md:text-zinc-700">
                         Email Address
                       </label>
                       <div className="relative flex items-center">
@@ -632,8 +629,8 @@ export default function Login() {
                     </div>
 
                     {/* Password Input */}
-                    <div className="space-y-2 p-4 md:p-0 rounded-2xl md:rounded-none bg-[#100b21]/90 md:bg-transparent border border-white/5 md:border-transparent">
-                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-300 md:text-zinc-700">
+                    <div className="space-y-1 p-3 md:p-0 rounded-xl md:rounded-none bg-[#100b21]/90 md:bg-transparent border border-white/5 md:border-transparent">
+                      <label className="text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-400 md:text-zinc-700">
                         Password
                       </label>
                       <div className="relative flex items-center">
@@ -673,7 +670,7 @@ export default function Login() {
                         />
                         <span>Remember Me</span>
                       </label>
-                      <a href="#" className="font-semibold text-[#5e2ae6] md:text-[#1e4cd8] hover:underline">
+                      <a href="#" className="font-semibold text-[#f1b827] md:text-[#1e4cd8] hover:underline">
                         Forgot Password?
                       </a>
                     </div>
@@ -696,7 +693,7 @@ export default function Login() {
                   </form>
 
                   {/* Divider OR */}
-                  <div className="my-6 flex items-center justify-center gap-3">
+                  <div className="my-2 flex items-center justify-center gap-3">
                     <div className="h-[1px] flex-1 bg-white/10 md:bg-zinc-200"></div>
                     <span className="text-xs font-bold uppercase tracking-wider text-zinc-500 md:text-zinc-400">
                       OR
@@ -732,7 +729,7 @@ export default function Login() {
                   </button>
 
                   {/* Switch view link */}
-                  <div className="mt-6 text-center text-sm">
+                  <div className="mt-4 text-center text-sm">
                     <span className="text-zinc-400 md:text-zinc-500">New here? </span>
                     <button
                       onClick={() => {
@@ -740,7 +737,7 @@ export default function Login() {
                         setError("");
                         setSuccess("");
                       }}
-                      className="font-bold text-[#5e2ae6] md:text-[#1e4cd8] hover:underline focus:outline-none"
+                      className="font-bold text-[#f1b827] md:text-[#1e4cd8] hover:underline focus:outline-none"
                     >
                       Create an Account
                     </button>

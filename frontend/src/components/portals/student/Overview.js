@@ -43,10 +43,10 @@ export default function Overview({ user, onLogout }) {
             margin: 0 15px !important;
           }
           .left_content_box h1 {
-            font-size: 28px !important;
+            font-size: 24px !important;
           }
           .left_content_box p {
-            font-size: 16px !important;
+            font-size: 14px !important;
             line-height: 1.4 !important;
           }
           .left_content_box em {
@@ -63,8 +63,7 @@ export default function Overview({ user, onLogout }) {
             overflow: visible !important;
             display: flex !important;
             justify-content: center !important;
-            width: 100% !important;
-            margin-bottom: -120px !important; /* Adjusted margin for scale */
+            margin-bottom: -160px !important; /* Adjusted margin for scale */
           }
           
           /* Scale down card row dynamically & center */
@@ -72,7 +71,7 @@ export default function Overview({ user, onLogout }) {
             display: flex !important;
             flex-wrap: nowrap !important;
             width: auto !important;
-            transform: scale(0.7) !important; /* Fits 1030px width inside 768px tablet */
+            transform: scale(0.5) !important; /* Fits perfectly inside tablet width */
             transform-origin: top center;
             margin: 0 !important;
             padding-top: 60px !important;
@@ -144,7 +143,7 @@ export default function Overview({ user, onLogout }) {
             display: flex !important;
             justify-content: center !important;
             width: 100% !important;
-            margin-top: -30px !important; /* Pull cards up slightly without hitting text */
+            margin-top: 20px !important; /* Push cards down to prevent overlapping text */
             margin-bottom: -260px !important; /* Offset for scaled down height to overlap bottom div */
           }
           
@@ -177,11 +176,11 @@ export default function Overview({ user, onLogout }) {
       `}</style>
 
       {/* SECTION 1: HEADER & ROTATED SUBJECT CARDS */}
-      <div className="box_model hero_banner relative z-10 pt-[40px] md:pt-[60px] overflow-visible md:overflow-hidden rounded-none md:rounded-[20px] border-none md:border border-white/10 mx-0 md:mx-8 lg:mx-12 mt-0 md:mt-4 shadow-2xl">
+      <div className="box_model hero_banner relative z-10 pt-[40px] md:pt-[60px] overflow-visible rounded-none md:rounded-[20px] border-none md:border border-white/10 mx-0 md:mx-4 lg:mx-4 mt-0 md:mt-4 shadow-2xl">
         <div className="text_box animate-fade-in px-4 md:px-[40px] relative z-20">
           <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-              
+            <div className="flex flex-col md:flex-row items-center justify-between md:gap-4 lg:gap-10">
+
               {/* LEFT: TEXT CONTENT */}
               <div className="w-full md:w-[45%] lg:w-[40%] flex-shrink-0">
                 <div className="left_content_box">
@@ -200,17 +199,17 @@ export default function Overview({ user, onLogout }) {
                     }}
                   >
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mt-0.5 md:mt-0">
-                      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#FFC300"/>
+                      <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#FFC300" />
                     </svg>
                     <span className="whitespace-nowrap text-[10px] sm:text-[12px] md:text-[14px]">
                       STUDENT INTELLIGENCE HUB
                     </span>
                   </em>
                   <h1
-                    className="text-white text-[38px] md:text-[54px] lg:text-[64px] font-black leading-[1.1] m-0 mb-4 tracking-tight"
+                    className="text-white text-[24px] md:text-[24px] lg:text-[64px] font-black leading-[1.1] m-0 mb-4 tracking-tight"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
-                    WELCOME BACK,<br/>
+                    WELCOME BACK,<br />
                     <span
                       style={{
                         background: "linear-gradient(to right, #FF6C03 0%, #FFC300 100%)",
@@ -222,10 +221,10 @@ export default function Overview({ user, onLogout }) {
                       {firstName || "JOHN"}!
                     </span>
                   </h1>
-                  
+
                   {/* Decorative underline for name */}
                   <div className="h-[3px] w-24 md:w-32 rounded-full mb-8" style={{ background: "linear-gradient(to right, #FF6C03, #6C38FF)" }}></div>
-                  
+
                   <p
                     className="text-slate-300 font-normal text-[15px] md:text-[17px] leading-[1.6]"
                     style={{ fontFamily: "'Inter', sans-serif", maxWidth: "420px" }}
@@ -237,9 +236,9 @@ export default function Overview({ user, onLogout }) {
               </div>
 
               {/* RIGHT: OVERLAPPING ROTATED CARDS */}
-              <div className="cards_scroll_wrapper w-full md:w-[55%] lg:w-[60%] flex flex-col items-center justify-center relative mt-16 md:mt-0 h-[480px]">
+              <div className="cards_scroll_wrapper w-full md:flex-1 flex flex-col items-center md:items-start justify-center relative mt-16 md:mt-0 h-[480px]">
                 <div className="card_main_subject_list relative w-full max-w-[800px] h-full flex justify-center items-center">
-                  
+
                   {/* Card 1: Study Streak */}
                   <div
                     className="absolute shadow-2xl rounded-[28px] p-5 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
@@ -258,10 +257,10 @@ export default function Overview({ user, onLogout }) {
                     </div>
                     <div className="flex flex-col items-center justify-center flex-1 relative z-10 w-full mt-2">
                       <div className="w-28 h-28 mb-2 relative flex items-center justify-center">
-                        <img 
-                          src="/images/student_portal_home_page/card_item5.png" 
-                          alt="Flame Streak" 
-                          className="w-full object-contain drop-shadow-[0_0_15px_rgba(255,108,3,0.6)] scale-110" 
+                        <img
+                          src="/images/student_portal_home_page/card_item5.png"
+                          alt="Flame Streak"
+                          className="w-full object-contain drop-shadow-[0_0_15px_rgba(255,108,3,0.6)] scale-110"
                         />
                       </div>
                       <div className="text-center">
@@ -292,10 +291,10 @@ export default function Overview({ user, onLogout }) {
                       <h3 className="font-black text-white text-[20px] tracking-wide">PHYSICS</h3>
                     </div>
                     <div className="flex-1 flex items-center justify-center relative mt-4">
-                      <img 
-                        src="/images/student_portal_home_page/card_item2.png" 
-                        alt="Physics Brain Lightbulb" 
-                        className="w-full max-h-[170px] object-contain drop-shadow-2xl relative z-10 scale-110" 
+                      <img
+                        src="/images/student_portal_home_page/card_item2.png"
+                        alt="Physics Brain Lightbulb"
+                        className="w-full max-h-[170px] object-contain drop-shadow-2xl relative z-10 scale-110"
                       />
                     </div>
                     <div className="flex items-end justify-between w-full relative z-10">
@@ -327,7 +326,7 @@ export default function Overview({ user, onLogout }) {
                       </div>
                       <h3 className="font-black text-white text-[24px] tracking-wide drop-shadow-md">CHEMISTRY</h3>
                     </div>
-                    
+
                     {/* 4 Li blocks pyramid: 1 on top, 3 on bottom */}
                     <div className="flex-1 flex flex-col items-center justify-center relative mt-4 gap-2">
                       {/* Top Row */}
@@ -341,7 +340,7 @@ export default function Overview({ user, onLogout }) {
                         <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
                       </div>
                     </div>
-                    
+
                     <div className="flex items-end justify-between w-full mt-4">
                       <p className="text-white/95 text-[13px] font-medium leading-snug max-w-[130px]">Keep up the excellent work!</p>
                       <button className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.2)] shrink-0">
@@ -371,10 +370,10 @@ export default function Overview({ user, onLogout }) {
                       <h3 className="font-black text-white text-[20px] tracking-wide">BIOLOGY</h3>
                     </div>
                     <div className="flex-1 flex items-center justify-center relative mt-2 -mb-2">
-                      <img 
-                        src="/images/student_portal_home_page/card_item4.png" 
-                        alt="Biology Bacteria" 
-                        className="w-full max-h-[150px] object-contain drop-shadow-2xl translate-x-2 scale-[1.35] relative z-0" 
+                      <img
+                        src="/images/student_portal_home_page/card_item4.png"
+                        alt="Biology Bacteria"
+                        className="w-full max-h-[150px] object-contain drop-shadow-2xl translate-x-2 scale-[1.35] relative z-0"
                       />
                     </div>
                     <div className="flex items-end justify-between w-full relative z-10">
@@ -429,10 +428,10 @@ export default function Overview({ user, onLogout }) {
 
       {/* BOTTOM SECTION: ACADEMIC SUMMARY & RECENT INSIGHTS */}
       <div className="relative pt-[16px] md:pt-[24px] pb-[80px] bg-transparent z-10">
-        <div className="mx-4 md:mx-8 lg:mx-12">
-          
+        <div className="mx-4">
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-6">
-            
+
             {/* LEFT COLUMN: ACADEMIC SUMMARY */}
             <div className="bg-white dark:bg-[#150a2e]/60 backdrop-blur-md border border-slate-200 dark:border-white/5 rounded-[20px] p-6 lg:p-8 shadow-2xl relative flex flex-col h-full md:min-h-[440px]">
               {/* Top Row */}
@@ -482,7 +481,7 @@ export default function Overview({ user, onLogout }) {
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
                     <span className="text-xs font-semibold text-emerald-400">+0.28 vs last week</span>
                   </div>
-                  
+
                   <div className="relative">
                     {/* Linear Progress Bar */}
                     <div className="h-2 w-full bg-slate-200 dark:bg-[#251448] rounded-full overflow-visible relative">
@@ -512,7 +511,7 @@ export default function Overview({ user, onLogout }) {
                       <span className="text-[9px] font-semibold text-emerald-400">+0.28 vs last week</span>
                     </div>
                   </div>
-                  
+
                   {/* Trophy Icon on right side */}
                   <div className="w-[90px] h-[90px] shrink-0 rounded-full border-[2px] border-l-[#6C38FF] border-t-[#FF6C03] border-r-[#FF6C03] border-b-[#6C38FF] flex items-center justify-center shadow-[0_0_15px_rgba(255,108,3,0.15)] bg-gradient-to-br from-transparent to-[#FF6C03]/10">
                     <span className="text-4xl drop-shadow-md">🏆</span>
@@ -544,7 +543,7 @@ export default function Overview({ user, onLogout }) {
                       <span className="text-slate-500 dark:text-slate-400 text-[11px]">Overall Score</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-3">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CC99FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
                     <div>
@@ -552,7 +551,7 @@ export default function Overview({ user, onLogout }) {
                       <span className="text-slate-500 dark:text-slate-400 text-[11px]">Topics Mastered</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center gap-3">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#CC99FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                     <div>
@@ -649,11 +648,11 @@ export default function Overview({ user, onLogout }) {
 
               </div>
             </div>
-            
+
           </div>
         </div>
       </div>
-      
+
     </div>
   );
 }

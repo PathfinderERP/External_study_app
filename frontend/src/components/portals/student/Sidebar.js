@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { 
-  TrendingUp, BookOpen, Calendar, ChevronLeft, ChevronRight, X, 
-  PieChart, Users, FileText, AlertCircle, LayoutList, ClipboardList, 
+import {
+  TrendingUp, BookOpen, Calendar, ChevronLeft, ChevronRight, X,
+  PieChart, Users, FileText, AlertCircle, LayoutList, ClipboardList,
   Trophy, ListTodo, User, Award, Coffee, Library, Target, Brain
 } from "lucide-react";
 
@@ -12,7 +12,7 @@ export default function Sidebar({ activeTab, setActiveTab, isMobile, isMinimized
     { id: "overview", label: "Overview", icon: TrendingUp, activeBg: "bg-[#FF6C03]/10", activeText: "text-[#FFC300]", activeBorder: "border-[#FF6C03]", activeIcon: "text-[#FF6C03]" },
     { id: "profile", label: "Profile", icon: User, activeBg: "bg-[#CC99FF]/10", activeText: "text-[#CC99FF]", activeBorder: "border-[#CC99FF]", activeIcon: "text-[#CC99FF]" },
     { id: "studyadda", label: "Study Adda", icon: Coffee, activeBg: "bg-[#FF9999]/10", activeText: "text-[#FF9999]", activeBorder: "border-[#FF9999]", activeIcon: "text-[#FF9999]" },
-    
+
     // New Figma pages
     { id: "analytics", label: "Analytics", icon: PieChart, activeBg: "bg-[#FF3366]/10", activeText: "text-[#FF3366]", activeBorder: "border-[#FF3366]", activeIcon: "text-[#FF3366]" },
     { id: "attendance", label: "Attendance", icon: Calendar, activeBg: "bg-[#33CC99]/10", activeText: "text-[#33CC99]", activeBorder: "border-[#33CC99]", activeIcon: "text-[#33CC99]" },
@@ -41,7 +41,7 @@ export default function Sidebar({ activeTab, setActiveTab, isMobile, isMinimized
               PATHFINDER
             </span>
             {isMobile && onClose && (
-              <button 
+              <button
                 onClick={onClose}
                 className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-white/70 dark:hover:text-white rounded-lg hover:bg-slate-200 dark:hover:bg-white/5 transition-colors"
                 title="Close sidebar"
@@ -64,7 +64,7 @@ export default function Sidebar({ activeTab, setActiveTab, isMobile, isMinimized
       )}
 
       {/* Navigation section */}
-      <nav className={`flex-1 overflow-y-auto space-y-1 p-3 ${isMinimized ? "px-2" : ""}`}>
+      <nav className={`flex-1 overflow-y-auto sidebar-scrollbar space-y-1 p-3 ${isMinimized ? "px-2" : ""}`}>
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -72,11 +72,10 @@ export default function Sidebar({ activeTab, setActiveTab, isMobile, isMinimized
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`group flex items-center gap-3 py-3 md:py-3.5 text-[15px] font-medium transition-all duration-300 ${isMinimized ? "justify-center w-12 h-12 mx-auto rounded-xl mb-2" : "px-4 mx-4 w-[calc(100%-32px)] rounded-2xl mb-1.5"} ${
-                isActive 
-                  ? "bg-[#FFC300]/10 border border-[#FFC300]/20 text-[#FFC300]" 
-                  : "text-slate-800 dark:text-white/90 hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent"
-              }`}
+              className={`group flex items-center gap-3 py-3 md:py-3.5 text-[15px] font-medium transition-all duration-300 ${isMinimized ? "justify-center w-12 h-12 mx-auto rounded-xl mb-2" : "px-4 mx-4 w-[calc(100%-32px)] rounded-2xl mb-1.5"} ${isActive
+                ? "bg-[#FFC300]/10 border border-[#FFC300]/20 text-[#FFC300]"
+                : "text-slate-800 dark:text-white/90 hover:bg-slate-100 dark:hover:bg-white/5 border border-transparent"
+                }`}
               title={isMinimized ? tab.label : ""}
             >
               <Icon className={`h-[22px] w-[22px] flex-shrink-0 transition-all duration-300 ${isActive ? "text-[#FFC300] drop-shadow-[0_0_8px_rgba(255,195,0,0.6)]" : "text-slate-700 dark:text-white/80 group-hover:text-slate-900 dark:group-hover:text-white"}`} strokeWidth={isActive ? 2 : 1.5} />
@@ -86,23 +85,20 @@ export default function Sidebar({ activeTab, setActiveTab, isMobile, isMinimized
         })}
       </nav>
 
-      {/* Keep Going Card (Bottom of Sidebar) */}
+      {/* Keep Going Section (Bottom of Sidebar) */}
       {!isMinimized && (
-        <div className="p-5 mt-auto border-t border-slate-200 dark:border-white/5">
-          <div className="bg-slate-50 dark:bg-[#150a2e]/50 rounded-2xl p-4 border border-slate-200 dark:border-[#3d1c7a]/40 shadow-lg relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-tr from-[#FF6C03]/10 to-transparent opacity-50"></div>
-            <div className="relative z-10">
-              <h4 className="text-[13px] font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2">
-                Keep going! <span className="text-lg">🚀</span>
-              </h4>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed mb-4 pr-2">
-                Consistency is the key to success.
-              </p>
-              
-              {/* Progress Bar */}
-              <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-[#FF6C03] to-[#CC99FF] w-[75%] rounded-full shadow-[0_0_10px_rgba(255,108,3,0.8)]"></div>
-              </div>
+        <div className="px-4 py-3 lg:px-6 lg:py-5 mt-auto border-t border-slate-200 dark:border-white/5">
+          <div className="relative z-10">
+            <h4 className="text-[12px] lg:text-[13px] font-bold text-slate-900 dark:text-white mb-1 flex items-center gap-2 leading-none">
+              Keep going! <span className="text-sm lg:text-lg">🚀</span>
+            </h4>
+            <p className="text-[10px] lg:text-[11px] text-slate-500 dark:text-slate-400 leading-tight mb-2 pr-2">
+              Consistency is the key to success.
+            </p>
+
+            {/* Progress Bar */}
+            <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-[#FF6C03] to-[#CC99FF] w-[75%] rounded-full shadow-[0_0_10px_rgba(255,108,3,0.8)]"></div>
             </div>
           </div>
         </div>

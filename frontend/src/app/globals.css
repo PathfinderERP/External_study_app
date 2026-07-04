@@ -28,8 +28,23 @@ body {
 
 /* Light mode (Default) scrollbar styles */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+/* Custom scrollbar for sidebar to restore it */
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+  display: block !important;
+}
+.sidebar-scrollbar {
+  scrollbar-width: thin !important;
+  scrollbar-color: #cbd5e1 transparent !important;
+}
+.dark .sidebar-scrollbar {
+  scrollbar-color: #321c54 #0c061a !important;
 }
 
 ::-webkit-scrollbar-track {
@@ -51,8 +66,8 @@ body {
 
 /* Firefox scrollbar compatibility */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
 }
 
 /* Dark mode scrollbar styles */

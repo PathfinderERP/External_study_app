@@ -41,6 +41,8 @@ services:
     restart: always
     env_file:
       - ./backend/.env
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
     ports:
       - "8000:8000"
     volumes:
@@ -60,6 +62,8 @@ services:
     command: arq app.worker.WorkerSettings
     env_file:
       - ./backend/.env
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
     volumes:
       - ./backend:/app
     depends_on:
@@ -85,6 +89,7 @@ services:
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost/api
       - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - backend
 
