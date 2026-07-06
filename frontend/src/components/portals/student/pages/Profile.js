@@ -187,7 +187,7 @@ const Profile = ({ onNavigate, isSidebarCollapsed }) => {
           <ProfileCard title="LEARNING STREAKS" titleClassName="text-orange-500">
             <div className="flex flex-col items-center justify-center py-6">
               <div className="w-20 h-20 flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
-                <Flame size={48} className="text-orange-500 fill-orange-500/80 drop-shadow-[0_0_15px_rgba(249,115,22,0.6)]" />
+                <img src="/images/profile/Margin.png" alt="Flame Streak" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(249,115,22,0.6)] scale-150" />
               </div>
               <h4 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 tracking-tight">15 Day Streak</h4>
               <p className="text-sm text-slate-500 dark:text-white/60 font-medium">You're on fire! Keep it up.</p>
