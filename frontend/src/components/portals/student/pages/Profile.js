@@ -1,10 +1,15 @@
 import React from 'react';
 import { Search, Bell, User, Mail, Phone, ShieldCheck, Wallet, Flame, TrendingUp, Award, Clock, ChevronRight, Zap, Target } from 'lucide-react';
 
-const ProfileCard = ({ title, children, className = "" }) => (
-  <div className={`bg-white dark:bg-[#0D0D0F] border border-slate-200 dark:border-white/5 rounded-[24px] md:rounded-[32px] p-6 md:p-8 shadow-2xl group hover:border-purple-500/20 transition-all duration-500 ${className}`}>
-    <h3 className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-500 dark:text-white/40 mb-6">{title}</h3>
-    {children}
+const ProfileCard = ({ title, children, className = "", titleAction = null, titleClassName = "text-slate-900 dark:text-white" }) => (
+  <div className={`bg-white dark:bg-[#150a2e] border-2 border-[#F382FF] rounded-[24px] md:rounded-[32px] p-6 md:p-8 shadow-2xl group hover:shadow-[0_0_30px_rgba(243,130,255,0.4)] transition-all duration-500 flex flex-col ${className}`}>
+    <div className="flex justify-between items-center mb-6">
+      <h3 className={`text-xl md:text-2xl font-bold ${titleClassName}`} style={{ fontFamily: '"Strelka", sans-serif' }}>{title}</h3>
+      {titleAction}
+    </div>
+    <div className="flex-1 flex flex-col">
+      {children}
+    </div>
   </div>
 );
 
@@ -12,22 +17,37 @@ const Profile = ({ onNavigate, isSidebarCollapsed }) => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#050505] text-slate-900 dark:text-white font-manrope overflow-x-hidden selection:bg-purple-500/30">
 
-      <main className="pt-2 md:pt-6 pb-8 md:pb-32 max-w-[1440px] mx-auto px-0 md:px-8 lg:px-[80px] relative">
+      <main className="pb-8 md:pb-32 w-full px-0 md:px-8 relative">
 
         {/* Hero Section */}
-        <div className="text-center mb-8 md:mb-16 mt-0 md:mt-8 relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0 flex items-center justify-center">
-            {/* Using a Lucide icon as placeholder for the missing 3D robot image */}
-            <User size={160} className="text-slate-200 dark:text-white/5 opacity-50" />
-          </div>
-          <div className="relative z-10">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.6em] text-slate-500 dark:text-white/40 mb-2 md:mb-4">WELCOME TO</h4>
-            <h1 className="text-[50px] md:text-[80px] lg:text-[100px] font-bold font-space leading-none tracking-tighter italic text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-white dark:to-white whitespace-nowrap">Your Profile</h1>
+        <div className="text-center mb-8 md:mb-16 mt-[-20px] md:mt-[-20px] relative flex flex-col items-center">
+          <img
+            src="./images/profile/profile.png"
+            alt="Profile Robot"
+            className='w-[155px] h-[190px] sm:w-[240px] sm:h-[240px] md:w-[400px] md:h-[300px] object-contain mx-auto relative -mb-[40px] sm:-mb-[64px] md:-mb-[80px]'
+            style={{ clipPath: 'inset(0 0 26.6% 0)' }}
+          />
+
+          {/* Lower section containing SVG Arch and Text */}
+          <div className="relative w-full z-0 flex flex-col items-center">
+
+            {/* Background SVG Separator perfectly aligned to the top of this container */}
+            <div className="absolute top-[-72px] md:top-[-64.5px] left-1/2 -translate-x-1/2 pointer-events-none z-0">
+              <img src="./images/profile/Background+HorizontalBorder.svg" alt="Background Line" className="w-[1536px] h-[400px] max-w-none" />
+            </div>
+
+            {/* Text inside the arch */}
+            <div className="relative z-20 mt-6 md:mt-8">
+              <h4 className="text-[14px] sm:text-[18px] md:text-[24px] font-normal tracking-[3px] md:tracking-[5px] leading-[18px] md:leading-[25px] text-slate-500 dark:text-[#FFFFFF] mb-0 md:mb-0 uppercase" style={{ fontFamily: '"Arsenal SC", sans-serif' }}>
+                welcome to
+              </h4>
+              <h1 className="text-[36px] sm:text-[50px] md:text-[100px] lg:text-[100px] font-bold leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-white dark:to-white whitespace-nowrap pr-4" style={{ fontFamily: '"Organetto", sans-serif' }}>Your Profile</h1>
+            </div>
           </div>
         </div>
 
         {/* Top Grid: Personal, Guardian, Fee */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mb-8 relative z-50">
           <ProfileCard title="PERSONAL INFO">
             <div className="flex items-center gap-6 mb-8">
               <div className="w-16 h-16 rounded-full border-2 border-purple-500/30 overflow-hidden p-1">
@@ -38,14 +58,14 @@ const Profile = ({ onNavigate, isSidebarCollapsed }) => {
                 <p className="text-xs text-slate-500 dark:text-white/40 font-bold uppercase tracking-widest">ID: STU-88291</p>
               </div>
             </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-white/60">
-                <Mail size={16} className="text-purple-400" />
-                alex.chen@studyadda.edu
+            <div className="space-y-4 w-full overflow-hidden">
+              <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-white/60 w-full">
+                <Mail size={16} className="text-purple-400 shrink-0" />
+                <span className="truncate">alex.chen@studyadda.edu</span>
               </div>
-              <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-white/60">
-                <Phone size={16} className="text-purple-400" />
-                +1 (555) 0123-4567
+              <div className="flex items-center gap-3 text-sm font-medium text-slate-600 dark:text-white/60 w-full">
+                <Phone size={16} className="text-purple-400 shrink-0" />
+                <span className="truncate">+1 (555) 0123-4567</span>
               </div>
             </div>
           </ProfileCard>
@@ -96,7 +116,7 @@ const Profile = ({ onNavigate, isSidebarCollapsed }) => {
         </div>
 
         {/* Middle Grid: Progress, Velocity, Streaks */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 mb-8">
           <ProfileCard title="YOUR PROGRESS">
             <div className="flex justify-center items-center py-4">
               <div className="relative w-40 h-40">
@@ -164,20 +184,20 @@ const Profile = ({ onNavigate, isSidebarCollapsed }) => {
             </div>
           </ProfileCard>
 
-          <ProfileCard title="LEARNING STREAKS">
+          <ProfileCard title="LEARNING STREAKS" titleClassName="text-orange-500">
             <div className="flex flex-col items-center justify-center py-6">
-              <div className="w-20 h-20 bg-orange-500/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_40px_rgba(249,115,22,0.1)] group-hover:scale-110 transition-transform">
-                <Flame size={40} className="text-orange-500 fill-orange-500/20" />
+              <div className="w-20 h-20 flex items-center justify-center mb-4 transition-transform group-hover:scale-110">
+                <Flame size={48} className="text-orange-500 fill-orange-500/80 drop-shadow-[0_0_15px_rgba(249,115,22,0.6)]" />
               </div>
-              <h4 className="text-4xl font-bold font-space italic mb-2 tracking-tighter">15 Day Streak</h4>
-              <p className="text-xs text-slate-500 dark:text-white/40 font-bold uppercase tracking-widest">You've never last flamed up.</p>
+              <h4 className="text-3xl md:text-4xl font-bold text-orange-500 mb-2 tracking-tight">15 Day Streak</h4>
+              <p className="text-sm text-slate-500 dark:text-white/60 font-medium">You're on fire! Keep it up.</p>
 
               <div className="mt-8 flex gap-2">
-                {[1, 2, 3, 4, 5].map(i => (
-                  <div key={i} className={`w-2 h-2 rounded-full ${i < 5 ? 'bg-orange-500' : 'bg-slate-200 dark:bg-white/10'}`}></div>
+                {[1, 2, 3, 4, 5, 6, 7].map(i => (
+                  <div key={i} className={`w-2 h-2 rounded-full ${i <= 5 ? 'bg-orange-500 shadow-[0_0_8px_rgba(249,115,22,0.8)]' : 'bg-orange-950/50'}`}></div>
                 ))}
               </div>
-              <p className="mt-4 text-[8px] font-black uppercase tracking-[0.2em] text-white/20">Final level in 2 milestones</p>
+              <p className="mt-4 text-[9px] font-black uppercase tracking-[0.2em] text-white/40">THIS WEEK'S PROGRESS</p>
             </div>
           </ProfileCard>
         </div>
