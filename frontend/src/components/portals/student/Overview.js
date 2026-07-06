@@ -238,7 +238,7 @@ export default function Overview({ user, onLogout }) {
               <div className="cards_scroll_wrapper w-full md:flex-1 flex flex-col items-center justify-center relative mt-16 md:mt-0 h-[380px] sm:h-[400px] md:h-[300px] lg:h-[380px] xl:h-[400px] 2xl:h-[480px] overflow-visible">
                 {/* Full-size layout isolator to perfectly center the absolute scaled container */}
                 <div className="relative w-full h-full">
-                  <div className="card_main_subject_list absolute top-[calc(50%+30px)] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-[800px] h-[480px] scale-[0.70] sm:scale-[0.80] md:scale-[0.60] lg:scale-[0.60] xl:scale-[0.70] 2xl:scale-[0.85] origin-center transition-transform">
+                  <div className="card_main_subject_list absolute top-[calc(50%+55px)] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-[800px] h-[480px] scale-[0.70] sm:scale-[0.80] md:scale-[0.60] lg:scale-[0.60] xl:scale-[0.70] 2xl:scale-[0.85] origin-center transition-transform">
 
                   {/* Card 1: Study Streak */}
                   <div
