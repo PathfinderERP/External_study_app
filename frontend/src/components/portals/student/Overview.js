@@ -70,7 +70,7 @@ export default function Overview({ user, onLogout }) {
           .card_main_subject_list {
             display: flex !important;
             flex-wrap: nowrap !important;
-            width: auto !important;
+            width: 800px !important;
             transform: scale(0.5) !important; /* Fits perfectly inside tablet width */
             transform-origin: top center;
             margin: 0 !important;
@@ -143,7 +143,7 @@ export default function Overview({ user, onLogout }) {
             display: flex !important;
             justify-content: center !important;
             width: 100% !important;
-            margin-top: 20px !important; /* Push cards down to prevent overlapping text */
+            margin-top: 20px !important;
             margin-bottom: -260px !important; /* Offset for scaled down height to overlap bottom div */
           }
           
@@ -179,10 +179,10 @@ export default function Overview({ user, onLogout }) {
       <div className="box_model hero_banner relative z-10 pt-[40px] md:pt-[60px] overflow-visible rounded-none md:rounded-[20px] border-none md:border border-white/10 mx-0 md:mx-4 lg:mx-4 mt-0 md:mt-4 shadow-2xl">
         <div className="text_box animate-fade-in px-4 md:px-[40px] relative z-20">
           <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
-            <div className="flex flex-col md:flex-row items-center justify-between md:gap-4 lg:gap-10">
+            <div className="flex flex-col md:flex-row items-center justify-between md:gap-0 lg:gap-10">
 
               {/* LEFT: TEXT CONTENT */}
-              <div className="w-full md:w-[45%] lg:w-[40%] flex-shrink-0">
+              <div className="w-full md:w-[42%] lg:w-[40%] flex-shrink-0">
                 <div className="left_content_box">
                   <em
                     className="line_text flex items-start md:items-center gap-2"
@@ -206,7 +206,7 @@ export default function Overview({ user, onLogout }) {
                     </span>
                   </em>
                   <h1
-                    className="text-white text-[24px] md:text-[24px] lg:text-[64px] font-black leading-[1.1] m-0 mb-4 tracking-tight"
+                    className="text-white text-[32px] md:text-[36px] lg:text-[36px] xl:text-[42px] 2xl:text-[56px] font-black leading-[1.1] m-0 mb-4 tracking-tight whitespace-nowrap"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     WELCOME BACK,<br />
@@ -235,9 +235,10 @@ export default function Overview({ user, onLogout }) {
                 </div>
               </div>
 
-              {/* RIGHT: OVERLAPPING ROTATED CARDS */}
-              <div className="cards_scroll_wrapper w-full md:flex-1 flex flex-col items-center md:items-start justify-center relative mt-16 md:mt-0 h-[480px]">
-                <div className="card_main_subject_list relative w-full max-w-[800px] h-full flex justify-center items-center">
+              <div className="cards_scroll_wrapper w-full md:flex-1 flex flex-col items-center justify-center relative mt-24 md:mt-0 h-[380px] sm:h-[400px] md:h-[300px] lg:h-[380px] xl:h-[400px] 2xl:h-[480px] overflow-visible">
+                {/* Full-size layout isolator to perfectly center the absolute scaled container */}
+                <div className="relative w-full h-full">
+                  <div className="card_main_subject_list absolute top-[60%] md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center w-[800px] h-[480px] scale-[0.70] sm:scale-[0.80] md:scale-[0.60] lg:scale-[0.60] xl:scale-[0.70] 2xl:scale-[0.85] origin-center transition-transform">
 
                   {/* Card 1: Study Streak */}
                   <div
@@ -408,6 +409,7 @@ export default function Overview({ user, onLogout }) {
                     </div>
                   </div>
 
+                </div>
                 </div>
 
                 {/* Pagination Dots */}
