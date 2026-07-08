@@ -32,7 +32,10 @@ const Profile = ({ onNavigate, isSidebarCollapsed }) => {
           <div className="relative w-full z-0 flex flex-col items-center">
 
             {/* Background SVG Separator perfectly aligned to the top of this container */}
-            <div className="absolute top-[-72px] md:top-[-64.5px] left-1/2 -translate-x-1/2 pointer-events-none z-0">
+            <div 
+              className="absolute top-[-72px] md:top-[-64.5px] left-1/2 -translate-x-1/2 pointer-events-none z-0"
+              style={{ maskImage: 'linear-gradient(to bottom, black 30%, transparent 60%)', WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent 60%)' }}
+            >
               <img src="./images/profile/Background+HorizontalBorder.svg" alt="Background Line" className="w-[1536px] h-[400px] max-w-none" />
             </div>
 

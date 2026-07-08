@@ -143,7 +143,7 @@ export default function StudentPortal({ user, onLogout }) {
         </header>
 
         {/* Content Body based on Active Tab */}
-        <main className={`flex-1 overflow-y-auto ${activeTab === "overview" ? "" : "p-6 md:p-8"}`}>
+        <main className="flex-1 overflow-y-auto">
           {activeTab === "overview" && <Overview user={user} onLogout={onLogout} />}
           {activeTab === "analytics" && <Analytics />}
           {activeTab === "attendance" && <Attendance />}
