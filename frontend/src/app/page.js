@@ -80,12 +80,33 @@ export default function Login() {
     document.body.appendChild(script);
 
     const token = localStorage.getItem("token");
+    const refreshToken = localStorage.getItem("refresh_token");
+
     if (token) {
       fetch("/api/users/me", {
-        headers: {
-          "Authorization": `Bearer ${token}`
-        }
+        headers: { "Authorization": `Bearer ${token}` }
       })
+        .then(res => {
+          if (res.status === 401 && refreshToken) {
+            // Access token expired — try to silently refresh
+            return fetch("/api/auth/refresh", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ refresh_token: refreshToken })
+            })
+              .then(r => r.json())
+              .then(tokens => {
+                if (!tokens.access_token) throw new Error("Refresh failed");
+                localStorage.setItem("token", tokens.access_token);
+                localStorage.setItem("refresh_token", tokens.refresh_token);
+                return fetch("/api/users/me", {
+                  headers: { "Authorization": `Bearer ${tokens.access_token}` }
+                });
+              });
+          }
+          if (!res.ok) throw new Error("Invalid session");
+          return res;
+        })
         .then(res => {
           if (!res.ok) throw new Error("Invalid session");
           return res.json();
@@ -97,6 +118,36 @@ export default function Login() {
         })
         .catch(() => {
           localStorage.removeItem("token");
+          localStorage.removeItem("refresh_token");
+          localStorage.removeItem("role");
+        })
+        .finally(() => {
+          setIsRestoringSession(false);
+        });
+    } else if (refreshToken) {
+      // No access token but refresh token exists — try to get new access token
+      fetch("/api/auth/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh_token: refreshToken })
+      })
+        .then(r => r.json())
+        .then(tokens => {
+          if (!tokens.access_token) throw new Error("Refresh failed");
+          localStorage.setItem("token", tokens.access_token);
+          localStorage.setItem("refresh_token", tokens.refresh_token);
+          return fetch("/api/users/me", {
+            headers: { "Authorization": `Bearer ${tokens.access_token}` }
+          }).then(r => r.json());
+        })
+        .then(profileData => {
+          setCurrentUser(profileData);
+          setUserRole(profileData.role);
+          localStorage.setItem("role", profileData.role);
+        })
+        .catch(() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("refresh_token");
           localStorage.removeItem("role");
         })
         .finally(() => {
@@ -107,12 +158,46 @@ export default function Login() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("refresh_token");
     localStorage.removeItem("role");
     setCurrentUser(null);
     setSuccess("");
     setError("");
   };
 
+  // Utility: fetch with automatic silent token refresh on 401
+  const apiFetch = async (url, options = {}) => {
+    const token = localStorage.getItem("token");
+    const headers = { ...(options.headers || {}), "Authorization": `Bearer ${token}` };
+    let res = await fetch(url, { ...options, headers });
+
+    if (res.status === 401) {
+      const refreshToken = localStorage.getItem("refresh_token");
+      if (!refreshToken) {
+        handleLogout();
+        throw new Error("Session expired. Please log in again.");
+      }
+      // Try to silently refresh
+      const refreshRes = await fetch("/api/auth/refresh", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ refresh_token: refreshToken })
+      });
+      if (!refreshRes.ok) {
+        handleLogout();
+        throw new Error("Session expired. Please log in again.");
+      }
+      const tokens = await refreshRes.json();
+      localStorage.setItem("token", tokens.access_token);
+      localStorage.setItem("refresh_token", tokens.refresh_token);
+      // Retry original request with new token
+      res = await fetch(url, {
+        ...options,
+        headers: { ...(options.headers || {}), "Authorization": `Bearer ${tokens.access_token}` }
+      });
+    }
+    return res;
+  };
 
 
   const handleSubmit = async (e) => {
@@ -156,6 +241,7 @@ export default function Login() {
 
       const profileData = await profileResponse.json();
       localStorage.setItem("token", data.access_token);
+      localStorage.setItem("refresh_token", data.refresh_token);
       localStorage.setItem("role", profileData.role);
       setUserRole(profileData.role);
       setSuccess("Successfully logged in!");
@@ -264,6 +350,7 @@ export default function Login() {
 
       // Store credentials and session token
       localStorage.setItem("token", loginData.access_token);
+      localStorage.setItem("refresh_token", loginData.refresh_token);
       localStorage.setItem("role", profileData.role);
 
       // Save credentials to show the success credentials popup card
@@ -339,6 +426,7 @@ export default function Login() {
 
       const profileData = await profileResponse.json();
       localStorage.setItem("token", data.access_token);
+      if (data.refresh_token) localStorage.setItem("refresh_token", data.refresh_token);
       localStorage.setItem("role", profileData.role);
       setUserRole(profileData.role);
       setSuccess("Logged in via Google!");

@@ -5,15 +5,18 @@ const Analytics = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#090514] text-slate-900 dark:text-white font-manrope overflow-x-hidden relative flex flex-col">
 
+      {/* Background Glow */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[100px] right-[-5%] w-[700px] h-[700px] bg-violet-500/8 dark:bg-violet-600/8 rounded-full blur-[140px]"></div>
+        <div className="absolute top-[200px] right-[10%] w-[400px] h-[400px] bg-purple-400/9 dark:bg-purple-500/5 rounded-full blur-[100px]"></div>
+      </div>
 
       <main className="relative z-10 pt-6 md:pt-5 pb-8 max-w-[1350px] mx-auto px-4 md:px-8 flex flex-col items-center w-full">
         {/* Title Section */}
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-4xl md:text-[80px] font-bold text-slate-900 dark:text-white leading-[1.1] md:leading-[1.1] mb-2 tracking-tight">
-            Understand Your
-          </h1>
-          <h1 className="text-4xl md:text-[80px] font-bold text-purple-600 dark:text-[#D4B3FF] leading-[1.1] md:leading-[1.1] mb-4 md:mb-6 tracking-tight">
-            Learning Pattern
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-5xl md:text-[96px] font-bold tracking-tight mb-4 md:mb-6 leading-[1.1]" style={{ fontFamily: '"Organetto", sans-serif' }}>
+            Understand Your<br />
+            <span className="text-slate-500 dark:text-[#888888]">Learning Pattern.</span>
           </h1>
           <p className="text-slate-500 dark:text-white/40 text-sm md:text-[15px] font-medium tracking-wide max-w-[280px] md:max-w-none mx-auto">
             AI-powered insights to improve your performance smarter, not harder.
@@ -21,47 +24,47 @@ const Analytics = () => {
         </div>
 
         {/* Cards Grid */}
-        <div className="flex flex-col md:flex-row justify-center gap-6 mb-16 w-full max-w-[1000px]">
+        <div className="flex flex-col md:flex-row justify-center gap-4 mb-8 w-full max-w-[900px]">
           {/* Card 1: Biggest Problem */}
-          <div className="bg-white dark:bg-[#1C1433]/40 border border-slate-200 dark:border-white/5 shadow-xl dark:shadow-none rounded-[40px] p-5 md:p-6 w-full md:w-1/3 backdrop-blur-xl relative overflow-hidden group hover:border-pink-300 dark:hover:bg-[#1C1433]/60 transition-all flex flex-col gap-2">
+          <div className="bg-white dark:bg-[#1C1433]/40 border border-pink-300 dark:border-[#FF4D8D]/60 shadow-xl dark:shadow-none rounded-[28px] p-4 w-full md:w-1/3 backdrop-blur-xl relative overflow-hidden group dark:hover:bg-[#1C1433]/60 transition-all flex flex-col gap-1.5">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-pink-500 dark:text-[#FF4D8D]">
+              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-pink-500 dark:text-[#FF4D8D]">
                 BIGGEST PROBLEM
               </span>
             </div>
             <div>
-              <h2 className="text-[40px] font-bold leading-none text-slate-900 dark:text-white mb-0 mt-1">38%</h2>
-              <p className="text-sm text-slate-500 dark:text-white/50 font-medium mt-1">Silly Mistakes</p>
+              <h2 className="text-[28px] font-bold leading-none text-slate-900 dark:text-white mb-0 mt-0.5">38%</h2>
+              <p className="text-xs text-slate-500 dark:text-white/50 font-medium mt-0.5">Silly Mistakes</p>
             </div>
-            <AlertCircle size={48} className="absolute top-1/2 -translate-y-1/2 right-6 text-pink-100 dark:text-[#FF4D8D]/10 stroke-[1.5]" />
+            <AlertCircle size={36} className="absolute top-1/2 -translate-y-1/2 right-5 text-pink-100 dark:text-[#FF4D8D]/10 stroke-[1.5]" />
           </div>
 
           {/* Card 2: Key Weakness */}
-          <div className="bg-white dark:bg-[#1C1433]/40 border border-slate-200 dark:border-white/5 shadow-xl dark:shadow-none rounded-[40px] p-5 md:p-6 w-full md:w-1/3 backdrop-blur-xl relative overflow-hidden group hover:border-cyan-300 dark:hover:bg-[#1C1433]/60 transition-all flex flex-col gap-2">
+          <div className="bg-white dark:bg-[#1C1433]/40 border border-cyan-300 dark:border-[#00E5FF]/60 shadow-xl dark:shadow-none rounded-[28px] p-4 w-full md:w-1/3 backdrop-blur-xl relative overflow-hidden group dark:hover:bg-[#1C1433]/60 transition-all flex flex-col gap-1.5">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-cyan-500 dark:text-[#00E5FF]">
+              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan-500 dark:text-[#00E5FF]">
                 KEY WEAKNESS
               </span>
             </div>
             <div>
-              <h2 className="text-[22px] font-bold leading-tight text-slate-900 dark:text-white mb-0 mt-1">Time Management</h2>
-              <p className="text-sm text-slate-500 dark:text-white/50 font-medium mt-1">Focused in Math</p>
+              <h2 className="text-[17px] font-bold leading-tight text-slate-900 dark:text-white mb-0 mt-0.5">Time Management</h2>
+              <p className="text-xs text-slate-500 dark:text-white/50 font-medium mt-0.5">Focused in Math</p>
             </div>
-            <Clock size={48} className="absolute top-1/2 -translate-y-1/2 right-6 text-cyan-100 dark:text-[#00E5FF]/10 stroke-[1.5]" />
+            <Clock size={36} className="absolute top-1/2 -translate-y-1/2 right-5 text-cyan-100 dark:text-[#00E5FF]/10 stroke-[1.5]" />
           </div>
 
           {/* Card 3: Student Type */}
-          <div className="bg-white dark:bg-[#1C1433]/40 border border-slate-200 dark:border-white/5 shadow-xl dark:shadow-none rounded-[40px] p-5 md:p-6 w-full md:w-1/3 backdrop-blur-xl relative overflow-hidden group hover:border-purple-300 dark:hover:bg-[#1C1433]/60 transition-all flex flex-col gap-2">
+          <div className="bg-white dark:bg-[#1C1433]/40 border border-purple-300 dark:border-[#B388FF]/60 shadow-xl dark:shadow-none rounded-[28px] p-4 w-full md:w-1/3 backdrop-blur-xl relative overflow-hidden group dark:hover:bg-[#1C1433]/60 transition-all flex flex-col gap-1.5">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-600 dark:text-[#B388FF]">
+              <span className="text-[9px] font-black uppercase tracking-[0.2em] text-purple-600 dark:text-[#B388FF]">
                 STUDENT TYPE
               </span>
             </div>
             <div>
-              <h2 className="text-[22px] font-bold leading-tight text-slate-900 dark:text-white mb-0 mt-1">Fast Learner</h2>
-              <p className="text-sm text-slate-500 dark:text-white/50 font-medium mt-1">Needs Discipline</p>
+              <h2 className="text-[17px] font-bold leading-tight text-slate-900 dark:text-white mb-0 mt-0.5">Fast Learner</h2>
+              <p className="text-xs text-slate-500 dark:text-white/50 font-medium mt-0.5">Needs Discipline</p>
             </div>
-            <Zap size={48} className="absolute top-1/2 -translate-y-1/2 right-6 text-purple-100 dark:text-[#B388FF]/10 stroke-[1.5]" />
+            <Zap size={36} className="absolute top-1/2 -translate-y-1/2 right-5 text-purple-100 dark:text-[#B388FF]/10 stroke-[1.5]" />
           </div>
         </div>
 
@@ -82,11 +85,11 @@ const Analytics = () => {
 
         {/* NEW ANALYTICS SECTIONS */}
         <div className="w-full mt-16 space-y-12 relative z-20">
-          
+
           {/* Where You Lose Marks */}
           <div>
             <h3 className="text-xl font-bold mb-6">Where You Lose Marks</h3>
-            
+
             <div className="bg-white/5 dark:bg-[#161026] border border-slate-200 dark:border-white/5 rounded-[30px] p-8">
               {/* Pills */}
               <div className="flex flex-wrap gap-4 mb-8">
@@ -244,8 +247,8 @@ const Analytics = () => {
             <div className="bg-white dark:bg-[#100B1A] border-y border-r border-slate-200 dark:border-[#00E5FF]/20 border-l-[3px] border-l-cyan-500 dark:border-l-[#00E5FF] rounded-[40px] p-8 md:p-10 flex flex-col justify-between relative overflow-hidden">
               <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-cyan-500 dark:bg-[#00E5FF]" />
               <div>
-                <h3 className="text-[28px] font-bold text-slate-900 dark:text-white mb-8 leading-tight">When You Perform<br/>Best</h3>
-                
+                <h3 className="text-[28px] font-bold text-slate-900 dark:text-white mb-8 leading-tight">When You Perform<br />Best</h3>
+
                 <div className="mb-8">
                   <div className="flex items-center gap-2 mb-3">
                     <Sun size={14} className="text-cyan-500 dark:text-[#00E5FF]" />
@@ -253,9 +256,9 @@ const Analytics = () => {
                   </div>
                   <div className="text-[32px] font-bold text-slate-900 dark:text-white">6 PM – 8 PM</div>
                 </div>
-                
+
                 <div className="w-full h-px bg-slate-200 dark:bg-white/5 mb-8" />
-                
+
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <Moon size={14} className="text-slate-400 dark:text-white/40" />
@@ -264,7 +267,7 @@ const Analytics = () => {
                   <div className="text-xl font-bold text-slate-500 dark:text-white/40">After 11 PM</div>
                 </div>
               </div>
-              
+
               <div className="mt-8 pt-8">
                 <p className="text-xs text-slate-500 dark:text-white/40 leading-relaxed font-medium">
                   Study difficult subjects in your peak focus hours to maximize retention.
@@ -281,7 +284,7 @@ const Analytics = () => {
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-pink-600 dark:text-pink-500">INCONSISTENT BUT IMPROVING</span>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12 px-4">
               <div className="flex flex-col">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/40 mb-3">STUDY DAYS</span>
@@ -289,7 +292,7 @@ const Analytics = () => {
                   18 <span className="text-lg text-slate-400 dark:text-white/30 font-medium">/ 30</span>
                 </div>
               </div>
-              
+
               <div className="flex flex-col relative">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/40 mb-3">CURRENT STREAK</span>
                 <div className="text-[40px] font-bold text-purple-600 dark:text-[#B388FF] leading-none mb-3">
@@ -297,14 +300,14 @@ const Analytics = () => {
                 </div>
                 <div className="absolute -bottom-4 left-0 w-full h-[3px] bg-purple-500 dark:bg-[#B388FF] shadow-[0_0_15px_rgba(179,136,255,0.5)] rounded-full" />
               </div>
-              
+
               <div className="flex flex-col">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/40 mb-3">MISSED DAYS</span>
                 <div className="text-[40px] font-bold text-pink-600 dark:text-pink-500 leading-none">
                   4
                 </div>
               </div>
-              
+
               <div className="flex flex-col">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-white/40 mb-3">AVG SESSION</span>
                 <div className="text-[40px] font-bold text-slate-900 dark:text-white leading-none">
@@ -312,7 +315,7 @@ const Analytics = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-pink-50 dark:bg-[#100B1A] border-y border-r border-pink-200 dark:border-pink-500/20 border-l-[3px] border-l-pink-500 rounded-3xl p-8 shadow-[-5px_0_15px_rgba(255,77,141,0.05)] relative overflow-hidden">
                 <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-pink-500" />
@@ -324,7 +327,7 @@ const Analytics = () => {
                   Your "Inconsistent but Improving" status means you are over-committing on 'good days' and burning out, leading to missed days. Your 5-day streak is the first sign of a healthy stabilization.
                 </p>
               </div>
-              
+
               <div className="bg-purple-50 dark:bg-[#100B1A] border-y border-r border-purple-200 dark:border-[#B388FF]/20 border-l-[3px] border-l-purple-500 dark:border-l-[#B388FF] rounded-3xl p-8 shadow-[-5px_0_15px_rgba(179,136,255,0.05)] relative overflow-hidden">
                 <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-purple-500 dark:bg-[#B388FF]" />
                 <div className="flex items-center gap-2 mb-4">
@@ -349,7 +352,7 @@ const Analytics = () => {
                   <Brain size={20} className="text-purple-600 dark:text-[#B388FF]" />
                 </div>
               </div>
-              
+
               <div className="flex-1">
                 <div className="mb-4">
                   <span className="text-[10px] font-black uppercase tracking-[0.4em] text-purple-600 dark:text-[#B388FF]">YOUR LEARNING IDENTITY</span>
@@ -360,7 +363,7 @@ const Analytics = () => {
                 <h2 className="text-4xl md:text-[48px] font-black text-slate-300 dark:text-white/30 leading-[1.1] tracking-tight mb-8">
                   Needs More Discipline.
                 </h2>
-                
+
                 <div className="flex flex-wrap items-center gap-4">
                   <button className="flex items-center gap-2 bg-purple-600 dark:bg-[#B388FF] text-white dark:text-[#100B1A] px-6 py-3 md:px-8 md:py-3.5 rounded-full font-bold text-sm hover:opacity-90 transition-all shadow-[0_0_20px_rgba(179,136,255,0.4)]">
                     <Sparkles size={16} />

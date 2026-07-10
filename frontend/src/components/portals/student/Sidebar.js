@@ -16,15 +16,14 @@ export default function Sidebar({ activeTab, setActiveTab, isMobile, isMinimized
     // New Figma pages
     { id: "analytics", label: "Analytics", icon: PieChart, activeBg: "bg-[#FF3366]/10", activeText: "text-[#FF3366]", activeBorder: "border-[#FF3366]", activeIcon: "text-[#FF3366]" },
     { id: "attendance", label: "Attendance", icon: Calendar, activeBg: "bg-[#33CC99]/10", activeText: "text-[#33CC99]", activeBorder: "border-[#33CC99]", activeIcon: "text-[#33CC99]" },
-    { id: "community", label: "Community", icon: Users, activeBg: "bg-[#9933FF]/10", activeText: "text-[#9933FF]", activeBorder: "border-[#9933FF]", activeIcon: "text-[#9933FF]" },
     { id: "exams", label: "Exams", icon: FileText, activeBg: "bg-[#FF9933]/10", activeText: "text-[#FF9933]", activeBorder: "border-[#FF9933]", activeIcon: "text-[#FF9933]" },
     { id: "grievance", label: "Grievance", icon: AlertCircle, activeBg: "bg-[#FF3333]/10", activeText: "text-[#FF3333]", activeBorder: "border-[#FF3333]", activeIcon: "text-[#FF3333]" },
+    { id: "studymaterial", label: "Study Material", icon: Library, activeBg: "bg-[#99CCFF]/10", activeText: "text-[#99CCFF]", activeBorder: "border-[#99CCFF]", activeIcon: "text-[#99CCFF]" },
     { id: "myfeed", label: "My Feed", icon: LayoutList, activeBg: "bg-[#3399FF]/10", activeText: "text-[#3399FF]", activeBorder: "border-[#3399FF]", activeIcon: "text-[#3399FF]" },
     { id: "noticeboard", label: "Notice Board", icon: ClipboardList, activeBg: "bg-[#FFCC00]/10", activeText: "text-[#FFCC00]", activeBorder: "border-[#FFCC00]", activeIcon: "text-[#FFCC00]" },
     { id: "performance", label: "Performance", icon: Trophy, activeBg: "bg-[#FF66CC]/10", activeText: "text-[#FF66CC]", activeBorder: "border-[#FF66CC]", activeIcon: "text-[#FF66CC]" },
     { id: "planner", label: "Planner", icon: ListTodo, activeBg: "bg-[#33CCFF]/10", activeText: "text-[#33CCFF]", activeBorder: "border-[#33CCFF]", activeIcon: "text-[#33CCFF]" },
     { id: "resultpage", label: "Result Page", icon: Award, activeBg: "bg-[#66FF99]/10", activeText: "text-[#66FF99]", activeBorder: "border-[#66FF99]", activeIcon: "text-[#66FF99]" },
-    { id: "studymaterial", label: "Study Material", icon: Library, activeBg: "bg-[#99CCFF]/10", activeText: "text-[#99CCFF]", activeBorder: "border-[#99CCFF]", activeIcon: "text-[#99CCFF]" },
     { id: "swotanalysis", label: "SWOT Analysis", icon: Target, activeBg: "bg-[#CCCCFF]/10", activeText: "text-[#CCCCFF]", activeBorder: "border-[#CCCCFF]", activeIcon: "text-[#CCCCFF]" }
   ];
 

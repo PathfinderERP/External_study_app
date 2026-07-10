@@ -11,6 +11,7 @@ from arq import create_pool
 from arq.connections import RedisSettings
 from datetime import timedelta
 import urllib.parse
+from jose import JWTError, jwt
 
 from app.database import get_db, Base, engine
 from app.models import User, UserRole
@@ -180,6 +181,47 @@ async def login(
         "refresh_token": refresh_token,
         "token_type": "bearer",
         "role": user.role
+    }
+
+
+class RefreshRequest(BaseModel):
+    refresh_token: str
+
+# Auth Endpoint: Refresh access token using refresh token
+@app.post("/auth/refresh")
+async def refresh_access_token(
+    body: RefreshRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid or expired refresh token",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        secret = os.getenv("JWT_SECRET", "super_secret_key_change_me_in_production")
+        algorithm = os.getenv("JWT_ALGORITHM", "HS256")
+        payload = jwt.decode(body.refresh_token, secret, algorithms=[algorithm])
+        # pyrefly: ignore [bad-assignment]
+        email: str = payload.get("sub")
+        # pyrefly: ignore [bad-assignment]
+        token_type: str = payload.get("type")
+        if email is None or token_type != "refresh":
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+
+    result = await db.execute(select(User).where(User.email == email))
+    user = result.scalars().first()
+    if user is None or not user.is_active:
+        raise credentials_exception
+
+    new_access_token = create_access_token(data={"sub": user.email, "role": user.role})
+    new_refresh_token = create_refresh_token(data={"sub": user.email, "role": user.role})
+    return {
+        "access_token": new_access_token,
+        "refresh_token": new_refresh_token,
+        "token_type": "bearer"
     }
 
 class GoogleLoginRequest(BaseModel):

@@ -176,7 +176,7 @@ export default function Overview({ user, onLogout }) {
       `}</style>
 
       {/* SECTION 1: HEADER & ROTATED SUBJECT CARDS */}
-      <div className="box_model hero_banner relative z-10 pt-[40px] md:pt-[60px] overflow-visible rounded-none md:rounded-[20px] border-none md:border border-white/10 mx-0 md:mx-4 lg:mx-4 mt-0 md:mt-4 shadow-2xl">
+      <div className="box_model hero_banner relative z-10 pt-[40px] md:pt-[60px] pb-[20px] md:pb-0 overflow-visible rounded-none md:rounded-[20px] border-none md:border border-white/10 mx-0 md:mx-4 lg:mx-4 mt-0 md:mt-4 shadow-2xl">
         <div className="text_box animate-fade-in px-4 md:px-[40px] relative z-20">
           <div className="container" style={{ maxWidth: "1600px", width: "100%", margin: "0 auto" }}>
             <div className="flex flex-col md:flex-row items-center justify-between md:gap-0 lg:gap-10">
@@ -240,176 +240,176 @@ export default function Overview({ user, onLogout }) {
                 <div className="relative w-full h-full">
                   <div className="card_main_subject_list absolute left-1/2 -translate-x-1/2 top-[calc(50%+55px)] -translate-y-1/2 md:top-[150px] md:translate-y-0 md:-ml-[80px] lg:ml-[40px] xl:top-1/2 xl:-translate-y-1/2 xl:-ml-[20px] 2xl:ml-0 flex justify-center items-center w-[800px] h-[480px] scale-[0.70] sm:scale-[0.80] md:scale-[0.60] lg:scale-[0.60] xl:scale-[0.70] 2xl:scale-[0.85] origin-center md:origin-top xl:origin-center transition-transform">
 
-                  {/* Card 1: Study Streak */}
-                  <div
-                    className="absolute shadow-2xl rounded-[28px] p-5 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
-                    style={{
-                      width: "180px",
-                      height: "280px",
-                      background: "linear-gradient(180deg, #6C38FF, #3E16A8)",
-                      left: "10%",
-                      transform: "translate(-50%, 40px) rotate(-12deg)",
-                      zIndex: 1,
-                    }}
-                  >
-                    <div className="text-center mt-2 relative z-10">
-                      <em className="text-white/80 font-medium text-[9px] tracking-wider uppercase block mb-0.5">Study</em>
-                      <h3 className="font-bold text-white text-lg leading-tight uppercase tracking-wide">Streak</h3>
+                    {/* Card 1: Study Streak */}
+                    <div
+                      className="absolute shadow-2xl rounded-[28px] p-5 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
+                      style={{
+                        width: "180px",
+                        height: "280px",
+                        background: "linear-gradient(180deg, #6C38FF, #3E16A8)",
+                        left: "10%",
+                        transform: "translate(-50%, 40px) rotate(-12deg)",
+                        zIndex: 1,
+                      }}
+                    >
+                      <div className="text-center mt-2 relative z-10">
+                        <em className="text-white/80 font-medium text-[9px] tracking-wider uppercase block mb-0.5">Study</em>
+                        <h3 className="font-bold text-white text-lg leading-tight uppercase tracking-wide">Streak</h3>
+                      </div>
+                      <div className="flex flex-col items-center justify-center flex-1 relative z-10 w-full mt-2">
+                        <div className="w-28 h-28 mb-2 relative flex items-center justify-center">
+                          <img
+                            src="/images/student_portal_home_page/card_item5.png"
+                            alt="Flame Streak"
+                            className="w-full object-contain drop-shadow-[0_0_15px_rgba(255,108,3,0.6)] scale-110"
+                          />
+                        </div>
+                        <div className="text-center">
+                          <span className="text-white font-black text-3xl block leading-none mb-1">7</span>
+                          <span className="text-white/80 text-[10px] font-medium tracking-wide">Days</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex flex-col items-center justify-center flex-1 relative z-10 w-full mt-2">
-                      <div className="w-28 h-28 mb-2 relative flex items-center justify-center">
+
+                    {/* Card 2: Physics */}
+                    <div
+                      className="absolute shadow-2xl rounded-[32px] p-6 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
+                      style={{
+                        width: "220px",
+                        height: "340px",
+                        background: "linear-gradient(180deg, #FF455B, #D61B3B)",
+                        left: "30%",
+                        transform: "translate(-50%, 20px) rotate(-6deg)",
+                        zIndex: 2,
+                      }}
+                    >
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                      <div className="relative z-10">
+                        <div className="bg-white/20 backdrop-blur-md rounded-full px-2.5 py-1 inline-flex items-center gap-1.5 mb-4 border border-white/10">
+                          <span className="text-white text-[9px]">★</span>
+                          <span className="text-white text-[9px] font-semibold tracking-wide">Need Improvement</span>
+                        </div>
+                        <h3 className="font-black text-white text-[20px] tracking-wide">PHYSICS</h3>
+                      </div>
+                      <div className="flex-1 flex items-center justify-center relative mt-4">
                         <img
-                          src="/images/student_portal_home_page/card_item5.png"
-                          alt="Flame Streak"
-                          className="w-full object-contain drop-shadow-[0_0_15px_rgba(255,108,3,0.6)] scale-110"
+                          src="/images/student_portal_home_page/card_item2.png"
+                          alt="Physics Brain Lightbulb"
+                          className="w-full max-h-[170px] object-contain drop-shadow-2xl relative z-10 scale-110"
                         />
                       </div>
-                      <div className="text-center">
-                        <span className="text-white font-black text-3xl block leading-none mb-1">7</span>
-                        <span className="text-white/80 text-[10px] font-medium tracking-wide">Days</span>
+                      <div className="flex items-end justify-between w-full relative z-10">
+                        <p className="text-white/90 text-[11px] font-medium leading-snug max-w-[100px]">Focus more to boost your score</p>
+                        <button className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/10 shrink-0 relative z-20">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        </button>
                       </div>
                     </div>
+
+                    {/* Card 3: Chemistry (Center) */}
+                    <div
+                      className="absolute shadow-[0_20px_50px_rgba(0,140,255,0.4)] rounded-[32px] p-7 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
+                      style={{
+                        width: "280px",
+                        height: "420px",
+                        background: "linear-gradient(180deg, #1DA1F2, #0056D2)",
+                        left: "50%",
+                        transform: "translate(-50%, 0) rotate(0deg)",
+                        zIndex: 3,
+                        border: "1px solid rgba(255,255,255,0.1)"
+                      }}
+                    >
+                      <div className="absolute top-0 right-0 w-40 h-40 bg-[#00E3FD]/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+                      <div className="relative z-10">
+                        <div className="bg-white/20 backdrop-blur-md rounded-full px-3 py-1 inline-flex items-center gap-1.5 mb-4 border border-white/10">
+                          <span className="text-white text-[10px]">★</span>
+                          <span className="text-white text-[10px] font-semibold tracking-wide">Strong Subject</span>
+                        </div>
+                        <h3 className="font-black text-white text-[24px] tracking-wide drop-shadow-md">CHEMISTRY</h3>
+                      </div>
+
+                      {/* 4 Li blocks pyramid: 1 on top, 3 on bottom */}
+                      <div className="flex-1 flex flex-col items-center justify-center relative mt-4 gap-2">
+                        {/* Top Row */}
+                        <div className="flex justify-center w-full">
+                          <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
+                        </div>
+                        {/* Bottom Row */}
+                        <div className="flex justify-center gap-2 w-full">
+                          <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
+                          <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
+                          <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
+                        </div>
+                      </div>
+
+                      <div className="flex items-end justify-between w-full mt-4">
+                        <p className="text-white/95 text-[13px] font-medium leading-snug max-w-[130px]">Keep up the excellent work!</p>
+                        <button className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.2)] shrink-0">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Card 4: Biology */}
+                    <div
+                      className="absolute shadow-2xl rounded-[32px] p-6 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
+                      style={{
+                        width: "220px",
+                        height: "340px",
+                        background: "linear-gradient(180deg, #0BA37F, #04654D)",
+                        left: "70%",
+                        transform: "translate(-50%, 20px) rotate(6deg)",
+                        zIndex: 2,
+                      }}
+                    >
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-300/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                      <div className="relative z-10">
+                        <div className="bg-white/20 backdrop-blur-md rounded-full px-2.5 py-1 inline-flex items-center gap-1.5 mb-4 border border-white/10">
+                          <span className="text-white text-[9px]">★</span>
+                          <span className="text-white text-[9px] font-semibold tracking-wide">Good Progress</span>
+                        </div>
+                        <h3 className="font-black text-white text-[20px] tracking-wide">BIOLOGY</h3>
+                      </div>
+                      <div className="flex-1 flex items-center justify-center relative mt-2 -mb-2">
+                        <img
+                          src="/images/student_portal_home_page/card_item4.png"
+                          alt="Biology Bacteria"
+                          className="w-full max-h-[150px] object-contain drop-shadow-2xl translate-x-2 scale-[1.35] relative z-0"
+                        />
+                      </div>
+                      <div className="flex items-end justify-between w-full relative z-10">
+                        <p className="text-white/90 text-[11px] font-medium leading-snug max-w-[100px]">You're making great progress!</p>
+                        <button className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/10 shrink-0 relative z-20">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Card 5: Study Strategies */}
+                    <div
+                      className="absolute shadow-2xl rounded-[28px] p-5 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
+                      style={{
+                        width: "180px",
+                        height: "280px",
+                        background: "linear-gradient(180deg, #6C38FF, #3E16A8)",
+                        left: "90%",
+                        transform: "translate(-50%, 40px) rotate(12deg)",
+                        zIndex: 1,
+                      }}
+                    >
+                      <div className="text-center mt-2 relative z-10">
+                        <em className="text-white/80 font-medium text-[9px] tracking-wider uppercase block mb-0.5">Study</em>
+                        <h3 className="font-bold text-white text-lg leading-tight uppercase tracking-wide">Strategies</h3>
+                      </div>
+                      <div className="flex flex-col items-center justify-center flex-1 mt-4">
+                        <div className="w-24 h-24 relative flex items-center justify-center">
+                          <div className="absolute inset-0 bg-[#CC99FF]/20 blur-xl rounded-full"></div>
+                          <span className="text-[5.5rem] relative z-10 drop-shadow-lg leading-none">📚</span>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
-
-                  {/* Card 2: Physics */}
-                  <div
-                    className="absolute shadow-2xl rounded-[32px] p-6 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
-                    style={{
-                      width: "220px",
-                      height: "340px",
-                      background: "linear-gradient(180deg, #FF455B, #D61B3B)",
-                      left: "30%",
-                      transform: "translate(-50%, 20px) rotate(-6deg)",
-                      zIndex: 2,
-                    }}
-                  >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="relative z-10">
-                      <div className="bg-white/20 backdrop-blur-md rounded-full px-2.5 py-1 inline-flex items-center gap-1.5 mb-4 border border-white/10">
-                        <span className="text-white text-[9px]">★</span>
-                        <span className="text-white text-[9px] font-semibold tracking-wide">Need Improvement</span>
-                      </div>
-                      <h3 className="font-black text-white text-[20px] tracking-wide">PHYSICS</h3>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center relative mt-4">
-                      <img
-                        src="/images/student_portal_home_page/card_item2.png"
-                        alt="Physics Brain Lightbulb"
-                        className="w-full max-h-[170px] object-contain drop-shadow-2xl relative z-10 scale-110"
-                      />
-                    </div>
-                    <div className="flex items-end justify-between w-full relative z-10">
-                      <p className="text-white/90 text-[11px] font-medium leading-snug max-w-[100px]">Focus more to boost your score</p>
-                      <button className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/10 shrink-0 relative z-20">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Card 3: Chemistry (Center) */}
-                  <div
-                    className="absolute shadow-[0_20px_50px_rgba(0,140,255,0.4)] rounded-[32px] p-7 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
-                    style={{
-                      width: "280px",
-                      height: "420px",
-                      background: "linear-gradient(180deg, #1DA1F2, #0056D2)",
-                      left: "50%",
-                      transform: "translate(-50%, 0) rotate(0deg)",
-                      zIndex: 3,
-                      border: "1px solid rgba(255,255,255,0.1)"
-                    }}
-                  >
-                    <div className="absolute top-0 right-0 w-40 h-40 bg-[#00E3FD]/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
-                    <div className="relative z-10">
-                      <div className="bg-white/20 backdrop-blur-md rounded-full px-3 py-1 inline-flex items-center gap-1.5 mb-4 border border-white/10">
-                        <span className="text-white text-[10px]">★</span>
-                        <span className="text-white text-[10px] font-semibold tracking-wide">Strong Subject</span>
-                      </div>
-                      <h3 className="font-black text-white text-[24px] tracking-wide drop-shadow-md">CHEMISTRY</h3>
-                    </div>
-
-                    {/* 4 Li blocks pyramid: 1 on top, 3 on bottom */}
-                    <div className="flex-1 flex flex-col items-center justify-center relative mt-4 gap-2">
-                      {/* Top Row */}
-                      <div className="flex justify-center w-full">
-                        <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
-                      </div>
-                      {/* Bottom Row */}
-                      <div className="flex justify-center gap-2 w-full">
-                        <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
-                        <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
-                        <img src="/images/student_portal_home_page/card_item3.png" alt="Li block" style={{ width: "70px", height: "70px" }} className="drop-shadow-lg" />
-                      </div>
-                    </div>
-
-                    <div className="flex items-end justify-between w-full mt-4">
-                      <p className="text-white/95 text-[13px] font-medium leading-snug max-w-[130px]">Keep up the excellent work!</p>
-                      <button className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.2)] shrink-0">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Card 4: Biology */}
-                  <div
-                    className="absolute shadow-2xl rounded-[32px] p-6 flex flex-col justify-between overflow-hidden transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
-                    style={{
-                      width: "220px",
-                      height: "340px",
-                      background: "linear-gradient(180deg, #0BA37F, #04654D)",
-                      left: "70%",
-                      transform: "translate(-50%, 20px) rotate(6deg)",
-                      zIndex: 2,
-                    }}
-                  >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-300/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-                    <div className="relative z-10">
-                      <div className="bg-white/20 backdrop-blur-md rounded-full px-2.5 py-1 inline-flex items-center gap-1.5 mb-4 border border-white/10">
-                        <span className="text-white text-[9px]">★</span>
-                        <span className="text-white text-[9px] font-semibold tracking-wide">Good Progress</span>
-                      </div>
-                      <h3 className="font-black text-white text-[20px] tracking-wide">BIOLOGY</h3>
-                    </div>
-                    <div className="flex-1 flex items-center justify-center relative mt-2 -mb-2">
-                      <img
-                        src="/images/student_portal_home_page/card_item4.png"
-                        alt="Biology Bacteria"
-                        className="w-full max-h-[150px] object-contain drop-shadow-2xl translate-x-2 scale-[1.35] relative z-0"
-                      />
-                    </div>
-                    <div className="flex items-end justify-between w-full relative z-10">
-                      <p className="text-white/90 text-[11px] font-medium leading-snug max-w-[100px]">You're making great progress!</p>
-                      <button className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-md flex items-center justify-center transition-colors border border-white/10 shrink-0 relative z-20">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Card 5: Study Strategies */}
-                  <div
-                    className="absolute shadow-2xl rounded-[28px] p-5 flex flex-col justify-between transition-transform duration-300 hover:-translate-y-4 hover:scale-105 hover:!z-50"
-                    style={{
-                      width: "180px",
-                      height: "280px",
-                      background: "linear-gradient(180deg, #6C38FF, #3E16A8)",
-                      left: "90%",
-                      transform: "translate(-50%, 40px) rotate(12deg)",
-                      zIndex: 1,
-                    }}
-                  >
-                    <div className="text-center mt-2 relative z-10">
-                      <em className="text-white/80 font-medium text-[9px] tracking-wider uppercase block mb-0.5">Study</em>
-                      <h3 className="font-bold text-white text-lg leading-tight uppercase tracking-wide">Strategies</h3>
-                    </div>
-                    <div className="flex flex-col items-center justify-center flex-1 mt-4">
-                      <div className="w-24 h-24 relative flex items-center justify-center">
-                        <div className="absolute inset-0 bg-[#CC99FF]/20 blur-xl rounded-full"></div>
-                        <span className="text-[5.5rem] relative z-10 drop-shadow-lg leading-none">📚</span>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
                 </div>
 
                 {/* Pagination Dots */}
